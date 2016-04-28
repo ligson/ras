@@ -1,6 +1,3 @@
-group 'org.ca.ras'
-version '1.0-SNAPSHOT'
-
 ext {
     mysqlVersion = "5.1.29"
     freemarkerVersion = "2.3.23"
@@ -8,7 +5,8 @@ ext {
     zkclientVersion = "0.4"
 }
 dependencies {
-    //compile project(":ra_api")
+    compile project(":ra_api")
+    compile "org.ligson.fw:fw_core:1.0-SNAPSHOT"
     //compile project(":fw_core")
     //compile project(":ca_api")
     //mysql driver
