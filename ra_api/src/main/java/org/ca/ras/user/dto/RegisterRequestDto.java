@@ -27,7 +27,7 @@ public class RegisterRequestDto extends BaseRequestDto {
     /***
      * 密码
      */
-    @Param(name = "密码", required = false)
+    @Param(name = "密码", required = true)
     private String password;
 
     /***

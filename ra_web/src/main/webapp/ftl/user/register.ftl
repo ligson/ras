@@ -1,31 +1,39 @@
 <@override name="title">注册</@override>
 <@override name="header">
+<link type="text/css" rel="stylesheet" href="${assetsPath}js/lib/bootstrap-validator/css/bootstrapValidator.css">
+<script type="text/javascript" src="${assetsPath}js/lib/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script type="text/javascript" src="${assetsPath}js/ras/user/register.js"></script>
 </@override>
 <@override name="body">
 <div class="col-sm-2"></div>
-<form class="form-horizontal col-sm-8" action="${basePath}user/register.do" method="post">
+<form id="register_form" class="form-horizontal col-sm-8" action="${basePath}user/register.do" method="post">
+    <div class="form-group text-center">
+        <p>
+            <small class="text-danger">${errorMsg}</small>
+        </p>
+    </div>
     <div class="form-group">
-        <label class="col-sm-4">用户名:</label>
+        <label class="col-sm-4" for="name">用户名:</label>
         <div class="col-sm-8">
-            <input type="text" placeholder="用户名" class="form-control"/>
+            <input type="text" id="name" name="name" placeholder="用户名" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-4">邮箱:</label>
+        <label class="col-sm-4" for="email">邮箱:</label>
         <div class="col-sm-8">
-            <input type="text" placeholder="邮箱" class="form-control"/>
+            <input type="text" placeholder="邮箱" class="form-control" id="email" name="email"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-4">手机号:</label>
+        <label class="col-sm-4" for="mobile">手机号:</label>
         <div class="col-sm-8">
-            <input type="text" placeholder="手机号" class="form-control"/>
+            <input type="text" placeholder="手机号" class="form-control" id="mobile" name="mobile"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-4">密码:</label>
+        <label class="col-sm-4" for="password">密码:</label>
         <div class="col-sm-8">
-            <input type="password" placeholder="密码" class="form-control"/>
+            <input type="password" placeholder="密码" class="form-control" id="password" name="password"/>
         </div>
     </div>
     <div class="form-group">

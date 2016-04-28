@@ -12,6 +12,7 @@ dependencies {
     compile project(":ra_api")
     //compile project(":fw_core")
     //compile project(":ca_api")
+    compile "org.ligson.fw:fw_string:1.0-SNAPSHOT"
     //dubbo
     compile("com.alibaba:dubbo:${dubboVersion}") {
         exclude(group: "org.springframework", module: "spring")
@@ -30,8 +31,8 @@ dependencies {
     compile "org.freemarker:freemarker:${freemarkerVersion}"
 
     //rapid
-    compile("com.googlecode.rapid-framework:rapid-core:${rapidVersion}"){
-        exclude(group:"org.apache.cxf")
+    compile("com.googlecode.rapid-framework:rapid-core:${rapidVersion}") {
+        exclude(group: "org.apache.cxf")
     }
     compile("com.googlecode.rapid-framework:rapid-generator:${rapidVersion}") {
         exclude(group: "org.freemarker")

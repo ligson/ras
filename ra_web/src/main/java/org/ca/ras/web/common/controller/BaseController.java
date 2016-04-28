@@ -32,4 +32,12 @@ public class BaseController {
         this.session = request.getSession();
         this.applicationContext = request.getServletContext();
     }
+
+    public String redirect(String url) {
+        return "redirect:" + url;
+    }
+
+    public String forward(String url) {
+        return "forward:" + url;
+    }
 }

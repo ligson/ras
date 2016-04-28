@@ -1,7 +1,11 @@
 package org.ca.ras.web.user.controller;
 
 import org.ca.ras.user.api.UserApi;
+import org.ca.ras.user.dto.RegisterRequestDto;
+import org.ca.ras.user.dto.RegisterResponseDto;
 import org.ca.ras.web.common.controller.BaseController;
+import org.ligson.fw.core.facade.base.result.Result;
+import org.ligson.fw.string.encode.HashHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,7 +38,22 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/register.do")
-    public void register() {
+    public String register(RegisterRequestDto requestDto) {
+        //requestDto.setPassword(HashHelper.md5(requestDto.getPassword()));
+        requestDto.setVersion("----------");
+        if (!requestDto.validate()) {
+            logger.error("参数不正确:{}", requestDto.getErrorFieldMap());
+            request.setAttribute("errorFieldMap", requestDto.getErrorFieldMap());
+            return forward("/user/register.html");
+        }
+        //requestDto.is
+        Result<RegisterResponseDto> result = userApi.register(requestDto);
+        if (result.isSuccess()) {
+            return redirect("/user/login.html");
+        } else {
+            request.setAttribute("errorMsg", result.getFailureMessage());
+            return forward("/user/register.html");
+        }
     }
 
 }
