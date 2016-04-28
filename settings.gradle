@@ -1,0 +1,6 @@
+rootProject.name = 'ras'
+include 'ra_api'
+include 'ra_service'
+include 'ra_web'
+
+
