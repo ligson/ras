@@ -5,11 +5,21 @@ ext {
     rapidVersion = "4.0.5"
     jacksonVersion = "2.6.3"
     commonsFileuploadVersion = "1.2.2"
+    dubboVersion = "2.5.3"
+    zkclientVersion = "0.4"
 }
 dependencies {
     compile project(":ra_api")
     //compile project(":fw_core")
     //compile project(":ca_api")
+    //dubbo
+    compile("com.alibaba:dubbo:${dubboVersion}") {
+        exclude(group: "org.springframework", module: "spring")
+    }
+    compile("com.101tec:zkclient:${zkclientVersion}") {
+        exclude(group: "log4j")
+        exclude(group: "junit")
+    }
 
 
     compile "org.springframework:spring-web:${springVersion}"
@@ -20,8 +30,14 @@ dependencies {
     compile "org.freemarker:freemarker:${freemarkerVersion}"
 
     //rapid
-    compile "com.googlecode.rapid-framework:rapid-core:${rapidVersion}"
-    compile "com.googlecode.rapid-framework:rapid-generator:${rapidVersion}"
+    compile("com.googlecode.rapid-framework:rapid-core:${rapidVersion}"){
+        exclude(group:"org.apache.cxf")
+    }
+    compile("com.googlecode.rapid-framework:rapid-generator:${rapidVersion}") {
+        exclude(group: "org.freemarker")
+        exclude(group: "com.h2database")
+        exclude(group: "mysql")
+    }
 
     //jackson
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"

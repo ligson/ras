@@ -27,6 +27,10 @@
         <property name="prefix" value="/jsp/" /> <property name="suffix" value=".jsp"
         /> </bean> -->
 
+    <context:property-placeholder location="classpath:*.properties" ignore-unresolvable="true"/>
+
+    <import resource="consumer.xml"/>
+
     <import resource="spring-freemarker.xml"/>
 
     <!--json-->

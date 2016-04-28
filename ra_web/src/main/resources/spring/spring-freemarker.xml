@@ -20,11 +20,6 @@
         <property name="location" value="classpath:freemarker-config.properties"/>
     </bean>
 
-    <!-- freemarker的配置 -->
-    <bean id="bmcConfig"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:freemarker-config.properties"/>
-    </bean>
     <!--freemarker 模板继承配置 -->
     <bean id="block"
           class="cn.org.rapid_framework.freemarker.directive.BlockDirective"/>
