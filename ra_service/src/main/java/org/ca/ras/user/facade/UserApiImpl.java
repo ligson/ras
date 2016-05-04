@@ -1,17 +1,16 @@
 package org.ca.ras.user.facade;
 
-import org.ca.ras.cert.dto.LoginRequestDto;
-import org.ca.ras.cert.dto.LoginResponseDto;
+import org.ca.ras.user.dto.LoginRequestDto;
+import org.ca.ras.user.dto.LoginResponseDto;
 import org.ca.ras.user.api.UserApi;
 import org.ca.ras.user.biz.LoginBiz;
-import org.ca.ras.user.biz.QueryBiz;
+import org.ca.ras.user.biz.QueryUserBiz;
 import org.ca.ras.user.biz.RegisterBiz;
 import org.ca.ras.user.dto.QueryUserRequestDto;
 import org.ca.ras.user.dto.QueryUserResponseDto;
 import org.ca.ras.user.dto.RegisterRequestDto;
 import org.ca.ras.user.dto.RegisterResponseDto;
 import org.ligson.fw.core.facade.base.result.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 
@@ -25,7 +24,7 @@ public class UserApiImpl implements UserApi {
     @Resource
     private RegisterBiz registerBiz;
     @Resource
-    private QueryBiz queryBiz;
+    private QueryUserBiz queryUserBiz;
 
     @Override
     public Result<RegisterResponseDto> register(RegisterRequestDto requestDto) {
@@ -34,7 +33,7 @@ public class UserApiImpl implements UserApi {
 
     @Override
     public Result<QueryUserResponseDto> query(QueryUserRequestDto requestDto) {
-        return queryBiz.operation(requestDto);
+        return queryUserBiz.operation(requestDto);
     }
 
     @Override

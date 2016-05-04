@@ -65,7 +65,7 @@ function save() {
             $.messager.alert('提示', '保存失败!', 'error');
         }
     })
-};
+}
 function update() {
     var url = 'editCategory';
     var fm = $("#fm");
@@ -114,7 +114,7 @@ function editeLanguage() {
     }
     else {
         $.messager.alert('提示', '请选择要修改的数据');
-        return;
+        
     }
 }
 

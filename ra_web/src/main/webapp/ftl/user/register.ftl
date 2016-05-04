@@ -15,7 +15,7 @@
     <div class="form-group">
         <label class="col-sm-4" for="name">用户名:</label>
         <div class="col-sm-8">
-            <input type="text" id="name" name="name" placeholder="用户名" class="form-control" value="${name!}"/>
+            <input type="text" id="name" name="name" placeholder="用户名" class="form-control" value="${name}"/>
         </div>
     </div>
     <div class="form-group">
@@ -33,7 +33,14 @@
     <div class="form-group">
         <label class="col-sm-4" for="password">密码:</label>
         <div class="col-sm-8">
-            <input type="password" placeholder="密码" class="form-control" id="password" name="password" value="${password}"/>
+            <input type="password" placeholder="密码" class="form-control" id="password" name="password"
+                   value="${password}"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4" for="password">重复输入密码:</label>
+        <div class="col-sm-8">
+            <input type="password" placeholder="重复输入密码" class="form-control" id="password2" name="password2"/>
         </div>
     </div>
     <div class="form-group">

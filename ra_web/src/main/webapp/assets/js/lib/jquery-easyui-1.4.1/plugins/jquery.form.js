@@ -43,8 +43,8 @@ _a.attr("action",a);
 t?_a.attr("target",t):_a.removeAttr("target");
 _b.remove();
 }
-};
-function _d(){
+}
+    function _d(){
 var f=$("#"+_6);
 if(!f.length){
 return;
@@ -58,8 +58,8 @@ setTimeout(_d,100);
 catch(e){
 cb();
 }
-};
-var _e=10;
+}
+    var _e=10;
 function cb(){
 var f=$("#"+_6);
 if(!f.length){
@@ -93,9 +93,9 @@ setTimeout(function(){
 f.unbind();
 f.remove();
 },100);
-};
-};
-function _11(_12,_13){
+}
+}
+    function _11(_12,_13){
 var _14=$.data(_12,"form").options;
 if(typeof _13=="string"){
 var _15={};
@@ -127,8 +127,8 @@ _1e(_1a,val);
 }
 _14.onLoadSuccess.call(_12,_18);
 _2b(_12);
-};
-function _1b(_1f,val){
+}
+    function _1b(_1f,val){
 var rr=$(_12).find("input[name=\""+_1f+"\"][type=radio], input[name=\""+_1f+"\"][type=checkbox]");
 rr._propAttr("checked",false);
 rr.each(function(){
@@ -138,8 +138,8 @@ f._propAttr("checked",true);
 }
 });
 return rr;
-};
-function _1d(_20,val){
+}
+    function _1d(_20,val){
 var _21=0;
 var pp=["textbox","numberbox","slider"];
 for(var i=0;i<pp.length;i++){
@@ -151,8 +151,8 @@ _21+=f.length;
 }
 }
 return _21;
-};
-function _1e(_22,val){
+}
+    function _1e(_22,val){
 var _23=$(_12);
 var cc=["combobox","combotree","combogrid","datetimebox","datebox","combo"];
 var c=_23.find("[comboName=\""+_22+"\"]");
@@ -169,9 +169,9 @@ return;
 }
 }
 }
-};
-};
-function _25(_26){
+}
+}
+    function _25(_26){
 $("input,select,textarea",_26).each(function(){
 var t=this.type,tag=this.tagName.toLowerCase();
 if(t=="text"||t=="hidden"||t=="password"||tag=="textarea"){
@@ -210,8 +210,8 @@ r[_2a]("clear");
 }
 }
 _2b(_26);
-};
-function _2c(_2d){
+}
+    function _2c(_2d){
 _2d.reset();
 var t=$(_2d);
 var _2e=["textbox","combo","combobox","combotree","combogrid","datebox","datetimebox","spinner","timespinner","numberbox","numberspinner","slider"];
@@ -223,8 +223,8 @@ r[_2f]("reset");
 }
 }
 _2b(_2d);
-};
-function _30(_31){
+}
+    function _30(_31){
 var _32=$.data(_31,"form").options;
 $(_31).unbind(".form");
 if(_32.ajax){
@@ -236,8 +236,8 @@ return false;
 });
 }
 _33(_31,_32.novalidate);
-};
-function _34(_35,_36){
+}
+    function _34(_35,_36){
 _36=_36||{};
 var _37=$.data(_35,"form");
 if(_37){
@@ -245,8 +245,8 @@ $.extend(_37.options,_36);
 }else{
 $.data(_35,"form",{options:$.extend({},$.fn.form.defaults,$.fn.form.parseOptions(_35),_36)});
 }
-};
-function _2b(_38){
+}
+    function _2b(_38){
 if($.fn.validatebox){
 var t=$(_38);
 t.find(".validatebox-text:not(:disabled)").validatebox("validate");
@@ -255,13 +255,13 @@ _39.filter(":not(:disabled):first").focus();
 return _39.length==0;
 }
 return true;
-};
-function _33(_3a,_3b){
+}
+    function _33(_3a,_3b){
 var _3c=$.data(_3a,"form").options;
 _3c.novalidate=_3b;
 $(_3a).find(".validatebox-text:not(:disabled)").validatebox(_3b?"disableValidation":"enableValidation");
-};
-$.fn.form=function(_3d,_3e){
+}
+    $.fn.form=function(_3d,_3e){
 if(typeof _3d=="string"){
 this.each(function(){
 _34(this);

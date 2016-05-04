@@ -1,4 +1,4 @@
-package org.ca.ras.cert.dto;
+package org.ca.ras.user.dto;
 
 import org.ca.ras.user.vo.User;
 import org.ligson.fw.core.facade.base.dto.BaseResponseDto;

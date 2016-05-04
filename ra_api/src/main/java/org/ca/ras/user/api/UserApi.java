@@ -1,7 +1,7 @@
 package org.ca.ras.user.api;
 
-import org.ca.ras.cert.dto.LoginRequestDto;
-import org.ca.ras.cert.dto.LoginResponseDto;
+import org.ca.ras.user.dto.LoginRequestDto;
+import org.ca.ras.user.dto.LoginResponseDto;
 import org.ca.ras.user.dto.QueryUserRequestDto;
 import org.ca.ras.user.dto.QueryUserResponseDto;
 import org.ca.ras.user.dto.RegisterRequestDto;

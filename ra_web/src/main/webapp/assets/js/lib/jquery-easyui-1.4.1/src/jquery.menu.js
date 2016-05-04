@@ -536,7 +536,7 @@
 				name: itemEl.itemName,
 				href: itemEl.itemHref,
 				onclick: itemEl.onclick
-			}
+			};
 			var icon = t.children('div.menu-icon');
 			if (icon.length){
 				var cc = [];

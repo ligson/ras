@@ -37,8 +37,8 @@ _7=Math.min(Math.max(_7,_5.minHeight),_5.maxHeight);
 _4.height=_7;
 _4.top=_4.startTop+_4.startHeight-_4.height;
 }
-};
-function _8(e){
+}
+    function _8(e){
 var _9=e.data;
 var t=$(_9.target);
 t.css({left:_9.left,top:_9.top});
@@ -48,20 +48,20 @@ t._outerWidth(_9.width);
 if(t.outerHeight()!=_9.height){
 t._outerHeight(_9.height);
 }
-};
-function _a(e){
+}
+    function _a(e){
 $.fn.resizable.isResizing=true;
 $.data(e.data.target,"resizable").options.onStartResize.call(e.data.target,e);
 return false;
-};
-function _b(e){
+}
+    function _b(e){
 _3(e);
 if($.data(e.data.target,"resizable").options.onResize.call(e.data.target,e)!=false){
 _8(e);
 }
 return false;
-};
-function _c(e){
+}
+    function _c(e){
 $.fn.resizable.isResizing=false;
 _3(e,true);
 _8(e);
@@ -69,8 +69,8 @@ $.data(e.data.target,"resizable").options.onStopResize.call(e.data.target,e);
 $(document).unbind(".resizable");
 $("body").css("cursor","");
 return false;
-};
-return this.each(function(){
+}
+    return this.each(function(){
 var _d=null;
 var _e=$.data(this,"resizable");
 if(_e){
@@ -107,8 +107,8 @@ return 0;
 }else{
 return val;
 }
-};
-var _12={target:e.data.target,dir:dir,startLeft:_11("left"),startTop:_11("top"),left:_11("left"),top:_11("top"),startX:e.pageX,startY:e.pageY,startWidth:$(e.data.target).outerWidth(),startHeight:$(e.data.target).outerHeight(),width:$(e.data.target).outerWidth(),height:$(e.data.target).outerHeight(),deltaWidth:$(e.data.target).outerWidth()-$(e.data.target).width(),deltaHeight:$(e.data.target).outerHeight()-$(e.data.target).height()};
+}
+    var _12={target:e.data.target,dir:dir,startLeft:_11("left"),startTop:_11("top"),left:_11("left"),top:_11("top"),startX:e.pageX,startY:e.pageY,startWidth:$(e.data.target).outerWidth(),startHeight:$(e.data.target).outerHeight(),width:$(e.data.target).outerWidth(),height:$(e.data.target).outerHeight(),deltaWidth:$(e.data.target).outerWidth()-$(e.data.target).width(),deltaHeight:$(e.data.target).outerHeight()-$(e.data.target).height()};
 $(document).bind("mousedown.resizable",_12,_a);
 $(document).bind("mousemove.resizable",_12,_b);
 $(document).bind("mouseup.resizable",_12,_c);
@@ -143,7 +143,7 @@ return dir;
 }
 }
 return "";
-};
+}
 });
 };
 $.fn.resizable.methods={options:function(jq){

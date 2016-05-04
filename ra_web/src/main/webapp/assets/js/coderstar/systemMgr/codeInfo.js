@@ -49,7 +49,7 @@ $(function () {
             }
         ]
     })
-})
+});
 //关闭弹出窗口
 function addCodeInfo() {
     var d=$("<div/>").dialog({

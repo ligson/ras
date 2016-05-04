@@ -1,12 +1,13 @@
 package org.ca.ras.user.vo;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
 /**
  * Created by ligson on 2016/4/25.
  */
-public class User {
+public class User implements Serializable {
     /***
      * id
      */

@@ -2,9 +2,10 @@ package org.ca.ras.user.biz;
 
 import org.ca.common.user.enums.LoginNameType;
 import org.ca.common.user.enums.UserState;
-import org.ca.ras.cert.dto.LoginRequestDto;
-import org.ca.ras.cert.dto.LoginResponseDto;
+import org.ca.ras.user.dto.LoginRequestDto;
+import org.ca.ras.user.dto.LoginResponseDto;
 import org.ca.ras.user.domain.UserEntity;
+import org.ca.ras.user.enums.UserFailCodeEnum;
 import org.ca.ras.user.service.UserService;
 import org.ca.ras.user.vo.User;
 import org.ligson.fw.core.common.biz.AbstractBiz;
@@ -76,17 +77,20 @@ public class LoginBiz extends AbstractBiz<LoginRequestDto, LoginResponseDto> {
             return false;
         }
         if (UserState.DISABLED.equals(entity.getStatus())) {
-
+            setFailureResult(UserFailCodeEnum.E_BIZ_20002);
+            return false;
         }
-        return null;
+        context.setAttr("entity",entity);
+        return true;
     }
 
     @Override
     public Boolean txnPreProcessing() {
-
+        UserEntity entity = (UserEntity) context.getAttr("entity");
         User user = new User();
-        //BeanUtils.copyProperties(entity, user);
+        BeanUtils.copyProperties(entity, user);
         responseDto.setUser(user);
+        responseDto.setSuccess(true);
         return true;
     }
 

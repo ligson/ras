@@ -21,4 +21,8 @@
                      timeout="${dubbo.consumer.timeout}"
                      version="${dubbo.iterface.version}"/>
     <!--直连增加url="${dubbo.registry.address}"-->
+    <dubbo:reference id="certApi"
+                     interface="org.ca.ras.cert.api.CertApi"
+                     timeout="${dubbo.consumer.timeout}"
+                     version="${dubbo.iterface.version}"/>
 </beans>

@@ -1,4 +1,4 @@
-package org.ca.ras.cert.dto;
+package org.ca.ras.user.dto;
 
 import org.ca.common.user.enums.LoginNameType;
 import org.ligson.fw.core.facade.annotation.Param;

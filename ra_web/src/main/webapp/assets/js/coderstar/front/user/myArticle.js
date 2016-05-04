@@ -74,7 +74,7 @@ function loadQuestion(question) {
     htmlString += "<a href=\"  " + baseUrl + "article/view?id=" + question.id + "\" class=\"cs-topic-name\">";
     htmlString += question.title;
     htmlString += "</a>";
-    htmlString += "<a href='" + baseUrl + "user/deleteArticle?id=" + question.id + "' class='pull-right' style='margin-left:10px;'>删除</a>"
+    htmlString += "<a href='" + baseUrl + "user/deleteArticle?id=" + question.id + "' class='pull-right' style='margin-left:10px;'>删除</a>";
     htmlString += "<a href='" + baseUrl + "article/edit?id=" + question.id + "' class='pull-right'>编辑</a>";
     var stateString = question.state == 1 ? "审核中" : "已发布";
     htmlString += "&nbsp;&nbsp;<span class=\"label label-info\">" + stateString + "</span>";

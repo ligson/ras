@@ -36,7 +36,7 @@ function loadQuestion(question) {
     var htmlString = "<div class=\"cs-item\">";
     htmlString += "<div class=\"mod-head \" >";
     htmlString += " <p class= \"text-color-999 \">";
-    htmlString += "<a title=\"" + question.creator.nickName + "\" class=\"img aw-border-radius-5\" href=\"/user/view?id=" + question.creator.id + "\" data-id=\"5\"><img style='width:50px;height:50px;' onerror=\"javascript:this.src='/images/pic_user.gif'\" src=\"" + question.creator.photo + "\"></a>";
+    htmlString += "<a title=\"" + question.creator.nickName + "\" class=\"img aw-border-radius-5\" href=\"/user/view?id=" + question.creator.id + "\" data-id=\"5\"><img style='width:50px;height:50px;' onerror=\"this.src='/images/pic_user.gif'\" src=\"" + question.creator.photo + "\"></a>";
     htmlString += "     <span>";
     htmlString += "     </span>";
     htmlString += "     <a href=\"  " + baseUrl + "article/view?id=" + question.id + "\" class=\" cs-topic-name\">" + question.title + "</a>";

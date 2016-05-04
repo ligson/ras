@@ -40,7 +40,7 @@ $("#codeInfoGrid").datagrid({
             handler: deleteCodeSort
 
         }]
-})
+});
 //关闭弹出窗口
 function addCodeSort() {
     var d=$("<div/>").dialog({
@@ -160,7 +160,7 @@ function deleteCodeSort() {
                 dataType: "text",
                 success: function (result) {
                     $.messager.alert("提示", "操作成功");
-                    $("#datagrid").datagrid("reload").datagrid('clearSelections').datagrid('clearChecked'); ;
+                    $("#datagrid").datagrid("reload").datagrid('clearSelections').datagrid('clearChecked');
                 }
             });
         }

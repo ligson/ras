@@ -28,5 +28,7 @@ public interface CertApi {
      */
     Result<QueryCertResponseDto> queryCert(QueryCertRequestDto requestDto);
 
+    enrollCert();
+
 
 }

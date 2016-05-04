@@ -52,10 +52,7 @@ public class RegisterBiz extends AbstractBiz<RegisterRequestDto, RegisterRespons
                 return false;
             }
         }
-        if (!CommonParamCheck.isValidPwd(requestDto.getPassword(), context, responseDto.getClass())) {
-            return false;
-        }
-        return true;
+        return CommonParamCheck.isValidPwd(requestDto.getPassword(), context, responseDto.getClass());
     }
 
     @Override

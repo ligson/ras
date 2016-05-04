@@ -39,15 +39,17 @@ public class BaseController {
         return "redirect:" + url;
     }
 
-    public String forward(String url) {
-        return "forward:" + url;
-    }
 
-    public String forward(HttpServletRequest httpServletRequest, String url) {
-        Map<String, String[]> paramsMap = httpServletRequest.getParameterMap();
+    public String forward(String url) {
+        Map<String, String[]> paramsMap = request.getParameterMap();
         Set<String> keySet = paramsMap.keySet();
         for (String key : keySet) {
-            request.setAttribute(key, paramsMap.get(key));
+            String[] value = paramsMap.get(key);
+            if (value.length == 1) {
+                request.setAttribute(key, value[0]);
+            } else {
+                request.setAttribute(key, value);
+            }
         }
         return "forward:" + url;
     }

@@ -103,7 +103,7 @@
 			}
 			buildGrid(this);
 		});
-	}
+	};
 	
 	$.fn.propertygrid.methods = {
 		options: function(jq){
@@ -328,7 +328,7 @@
 					value: row[opts.groupField],
 					rows: [row],
 					startIndex: state.data.rows.length
-				}
+				};
 				groupIndex = this.groups.length;
 				dc.body1.append(this.renderGroup.call(this, target, groupIndex, group, true));
 				dc.body2.append(this.renderGroup.call(this, target, groupIndex, group, false));

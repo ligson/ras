@@ -293,7 +293,7 @@
 				resizeFilter(target);
 			}
 			onResize.call(this, width, height);
-		}
+		};
 		var onBeforeLoad = opts.onBeforeLoad;
 		opts.onBeforeLoad = function(param){
 			param.filterRules = opts.filterStringify(opts.filterRules);

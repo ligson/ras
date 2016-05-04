@@ -1,15 +1,25 @@
 package org.ca.ras.web.user.controller;
 
+import org.ca.common.user.enums.LoginNameType;
+import org.ca.ras.user.dto.LoginRequestDto;
+import org.ca.ras.user.dto.LoginResponseDto;
 import org.ca.ras.user.api.UserApi;
+import org.ca.ras.user.dto.QueryUserRequestDto;
+import org.ca.ras.user.dto.QueryUserResponseDto;
 import org.ca.ras.user.dto.RegisterRequestDto;
 import org.ca.ras.user.dto.RegisterResponseDto;
 import org.ca.ras.web.common.controller.BaseController;
 import org.ligson.fw.core.facade.base.result.Result;
+import org.ligson.fw.core.facade.web.vo.WebResult;
 import org.ligson.fw.string.encode.HashHelper;
+import org.ligson.fw.string.validator.EmailValidator;
+import org.ligson.fw.string.validator.PhoneValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Enumeration;
 
 /**
  * Created by ligson on 2016/4/26.
@@ -28,12 +38,44 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/login.do")
-    public void login() {
+    public String login(LoginRequestDto requestDto) {
+        String loginName = requestDto.getLoginName();
+        if (PhoneValidator.isMobile(loginName)) {
+            requestDto.setLoginNameType(LoginNameType.MOBILE);
+        } else if (EmailValidator.isValidEmail(loginName)) {
+            requestDto.setLoginNameType(LoginNameType.EMAIL);
+        } else {
+            requestDto.setLoginNameType(LoginNameType.NAME);
+        }
+        requestDto.setPassword(HashHelper.md5(requestDto.getPassword()));
+
+        if (!requestDto.validate()) {
+            String errorMsg = "";
+            for (String e : requestDto.getErrorFieldMap().values()) {
+                errorMsg += e + "<br/>";
+            }
+            request.setAttribute("errorMsg", errorMsg);
+            return forward("/user/login.html");
+        }
+
+        Result<LoginResponseDto> result = userApi.login(requestDto);
+        if (result.isSuccess()) {
+            return redirect("/cert/index.html");
+        } else {
+            request.setAttribute("errorMsg", result.getFailureMessage());
+            return forward("/user/login.html");
+        }
     }
 
     @RequestMapping("/register.html")
     public String toReg() {
         logger.info("to login.........");
+        Enumeration<String> names = request.getAttributeNames();
+        while (names.hasMoreElements()) {
+            String name = names.nextElement();
+            Object value = request.getAttribute(name);
+            logger.info("name={},value={},valueType={}", name, value, value.getClass().getName());
+        }
         return "user/register";
     }
 
@@ -52,8 +94,23 @@ public class UserController extends BaseController {
             return redirect("/user/login.html");
         } else {
             request.setAttribute("errorMsg", result.getFailureMessage());
-            return forward(request, "/user/register.html");
+            return forward("/user/register.html");
         }
+    }
+
+    @ResponseBody
+    @RequestMapping("/checkLoginName.json")
+    public WebResult checkLoginName(QueryUserRequestDto requestDto) {
+        Result<QueryUserResponseDto> result = userApi.query(requestDto);
+        if (result.isSuccess()) {
+            boolean valid = result.getData().getUserList().size() == 0;
+            webResult.setSuccess(true);
+            webResult.put("valid", valid);
+        } else {
+            webResult.setSuccess(false);
+            webResult.put("valid", false);
+        }
+        return webResult;
     }
 
 }
