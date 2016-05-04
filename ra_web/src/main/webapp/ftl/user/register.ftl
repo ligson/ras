@@ -15,25 +15,25 @@
     <div class="form-group">
         <label class="col-sm-4" for="name">用户名:</label>
         <div class="col-sm-8">
-            <input type="text" id="name" name="name" placeholder="用户名" class="form-control"/>
+            <input type="text" id="name" name="name" placeholder="用户名" class="form-control" value="${name!}"/>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-4" for="email">邮箱:</label>
         <div class="col-sm-8">
-            <input type="text" placeholder="邮箱" class="form-control" id="email" name="email"/>
+            <input type="text" placeholder="邮箱" class="form-control" id="email" name="email" value="${email}"/>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-4" for="mobile">手机号:</label>
         <div class="col-sm-8">
-            <input type="text" placeholder="手机号" class="form-control" id="mobile" name="mobile"/>
+            <input type="text" placeholder="手机号" class="form-control" id="mobile" name="mobile" value="${mobile}"/>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-4" for="password">密码:</label>
         <div class="col-sm-8">
-            <input type="password" placeholder="密码" class="form-control" id="password" name="password"/>
+            <input type="password" placeholder="密码" class="form-control" id="password" name="password" value="${password}"/>
         </div>
     </div>
     <div class="form-group">

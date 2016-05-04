@@ -52,7 +52,7 @@ public class UserController extends BaseController {
             return redirect("/user/login.html");
         } else {
             request.setAttribute("errorMsg", result.getFailureMessage());
-            return forward("/user/register.html");
+            return forward(request, "/user/register.html");
         }
     }
 

@@ -9,6 +9,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by ligson on 2016/4/26.
@@ -38,6 +40,15 @@ public class BaseController {
     }
 
     public String forward(String url) {
+        return "forward:" + url;
+    }
+
+    public String forward(HttpServletRequest httpServletRequest, String url) {
+        Map<String, String[]> paramsMap = httpServletRequest.getParameterMap();
+        Set<String> keySet = paramsMap.keySet();
+        for (String key : keySet) {
+            request.setAttribute(key, paramsMap.get(key));
+        }
         return "forward:" + url;
     }
 }
