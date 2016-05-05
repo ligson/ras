@@ -2,6 +2,7 @@ package org.ca.ras.web.cert.controller;
 
 import org.ca.ras.cert.api.CertApi;
 import org.ca.ras.cert.dto.IssueCertRequestDto;
+import org.ligson.fw.web.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
  */
 @RequestMapping("/cert")
 @Controller
-public class CertController {
+public class CertController extends BaseController{
     @Resource
     private CertApi certApi;
 
