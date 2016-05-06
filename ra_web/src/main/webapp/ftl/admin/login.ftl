@@ -1,29 +1,61 @@
-<@override name="title">首页</@override>
-<@override name="header">
-</@override>
-<@override name="body">
-<div class="jumbotron">
-    <h3>特色一:轻量级</h3>
-    <p>使用spring等轻量级库,抛弃EJB的繁琐</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RA管理系统登陆</title>
+    <link rel="stylesheet" type="text/css" href="${assetsPath}js/lib/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="${assetsPath}js/lib/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${assetsPath}css/admin/admin-login.css">
+    <script type="text/javascript" src="${assetsPath}js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="${assetsPath}js/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${assetsPath}js/kms/login.js"></script>
+</head>
+<body>
+<div class="login-container">
+    <h2 style="padding-bottom:5px;font-size:14px;font-weight:bold;padding-left:10px;border-bottom:1px solid gainsboro;">
+        RA登陆</h2>
+
+    <form action="${basePath}admin/login.do" method="post">
+        <div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input id="username" type="text" name="loginName" class="form-control" placeholder="请输入用户名/邮箱/手机号"
+                       aria-describedby="basic-addon1" value="">
+            </div>
+            <div class="input-group" style="margin-top:10px;">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input id="password" type="password" name="password" class="form-control" placeholder="请输入密码"
+                       aria-describedby="basic-addon1" value="">
+            </div>
+        </div>
+        <div style="margin-top:10px;">
+        <#if errorMsg>
+            <div id="errorMsg" class="alert alert-danger pull-left" role="alert">${errorMsg}</div>
+        </#if>
+            <input id="btn-login" class="btn btn-success pull-right" type="submit" value="登陆"
+                   style="margin-right:10px;">
+        </div>
+    </form>
+
 </div>
-<div class="jumbotron">
-    <h3>特色二:灵活部署</h3>
-    <p>CA和RA可以多种模式部署</p>
+<div class="ui-mask-box">
+
+
+    <div class="ui-mask-container">
+        <h1>您的浏览器有点古董了,换个新的吧!</h1>
+
+        <div class="ui-mask-list">
+            <a href="http://chrome.360.cn/" title="360极速浏览器"><img
+                    src="${assetsPath}images/browser/360chrome.png"/></a>
+            <a href="http://rj.baidu.com/soft/detail/14744.html?ald" title="谷歌chrome极速浏览器"><img
+                    src="${assetsPath}images/browser/compatible_chrome.gif"/></a>
+            <a href="http://www.firefox.com.cn/download/" title="火狐浏览器"><img
+                    src="${assetsPath}images/browser/compatible_firefox.gif"/></a>
+            <a href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-9-worldwide-languages" title="IE9浏览器"><img
+                    src="${assetsPath}images/browser/compatible_ie.gif"/></a>
+        </div>
+    </div>
 </div>
-<div class="jumbotron">
-    <h3>特色三:分布式,可伸缩</h3>
-    <p>采用dubbo框架可以支持大规模运营</p>
-</div>
-<div class="jumbotron">
-    <h3>特色四:遵循国密标准</h3>
-    <p>支持国密算法,双证书,单独密钥管理系统</p>
-</div>
-<div class="jumbotron">
-    <h3>我要试用</h3>
-    <a class="btn btn-info" href="${basePath}user/login.html">注册用户</a>
-    <a class="btn btn-info">前往注册认证系统(RAS)</a>
-    <a class="btn btn-info">前往证书认证系统(CAS)</a>
-    <a class="btn btn-info">前往密钥管理系统(KMS)</a>
-</div>
-</@override>
-<@extends name="layout/index.ftl"/>
+</body>
+</html>

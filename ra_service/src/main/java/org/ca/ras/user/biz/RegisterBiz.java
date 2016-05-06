@@ -1,5 +1,6 @@
 package org.ca.ras.user.biz;
 
+import org.ca.common.user.enums.UserRole;
 import org.ca.common.user.enums.UserState;
 import org.ca.ras.user.domain.UserEntity;
 import org.ca.ras.user.dto.RegisterRequestDto;
@@ -90,6 +91,7 @@ public class RegisterBiz extends AbstractBiz<RegisterRequestDto, RegisterRespons
     @Override
     public Boolean persistence() {
         UserEntity entity = (UserEntity) context.getAttr("entity");
+        entity.setStatus(UserRole.USER.getCode());
         userService.add(entity);
         responseDto.setId(entity.getId());
         setSuccessResult();

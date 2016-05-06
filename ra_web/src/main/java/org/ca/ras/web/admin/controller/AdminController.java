@@ -10,6 +10,7 @@ import org.ligson.fw.string.encode.HashHelper;
 import org.ligson.fw.web.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -25,11 +26,16 @@ public class AdminController extends BaseController {
     @RequestMapping("/login.html")
     public String toLogin() {
         logger.info("to login.........");
-        return "user/login";
+        String errorMsg = request.getParameter("errorMsg");
+        if (errorMsg != null) {
+            request.setAttribute("errorMsg", errorMsg);
+        }
+        return "admin/login";
     }
 
     @RequestMapping("/login.do")
-    public String login(LoginRequestDto requestDto) {
+    public ModelAndView login(LoginRequestDto requestDto) {
+        ModelAndView modelAndView = new ModelAndView();
         String loginName = requestDto.getLoginName();
         requestDto.setLoginNameType(LoginRequestDto.getByLoginName(loginName));
         requestDto.setPassword(HashHelper.md5(requestDto.getPassword()));
@@ -39,19 +45,28 @@ public class AdminController extends BaseController {
             for (String e : requestDto.getErrorFieldMap().values()) {
                 errorMsg += e + "<br/>";
             }
-            return redirect("/admin/login.html?errorMsg=" + errorMsg);
+            modelAndView.setViewName("redirect:/admin/login.html");
+            modelAndView.addObject("errorMsg", errorMsg);
+            return modelAndView;
         }
 
         Result<LoginResponseDto> result = userApi.login(requestDto);
         if (result.isSuccess()) {
-            if (result.getData().getUser().getRole() != UserRole.RA_ADMIN.getCode()) {
-                return redirect("/admin/login.html?errorMsg=没有权限");
+            Integer role = result.getData().getUser().getRole();
+            if (!role.equals(UserRole.RA_ADMIN.getCode())) {
+                modelAndView.setViewName("redirect:/admin/login.html");
+                modelAndView.addObject("errorMsg", "没有权限");
+                return modelAndView;
             } else {
                 session.setAttribute("adminUser", result.getData().getUser());
             }
         } else {
-            return redirect("/admin/login.html?errorMsg=" + result.getFailureMessage());
+            modelAndView.setViewName("redirect:/admin/login.html");
+            modelAndView.addObject("errorMsg", result.getFailureMessage());
+            return modelAndView;
         }
-        return redirect("/admin/certMgr/index.html");
+        modelAndView.setViewName("redirect:/admin/certMgr/index.html");
+        modelAndView.addObject("errorMsg", result.getFailureMessage());
+        return modelAndView;
     }
 }

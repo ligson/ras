@@ -19,7 +19,7 @@
     <mvc:resources mapping="/images/**" location="/assets/images/"/>
     <mvc:resources mapping="/css/**" location="/assets/css/"/>
     <mvc:default-servlet-handler/>
-    <!--<mvc:view-controller path="/" view-name="redirect:/user/login.html"/>-->
+    <mvc:view-controller path="/" view-name="redirect:/index.html"/>
     <!-- 处理静态资源 end -->
 
     <!-- 定义JSP视图解析器 -->
