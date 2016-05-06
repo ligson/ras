@@ -1,4 +1,4 @@
-package org.ca.ras.web.cert.controller;
+package org.ca.ras.web.pub.controller;
 
 import org.ca.ras.cert.api.CertApi;
 import org.ca.ras.cert.dto.IssueCertRequestDto;
@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  */
 @RequestMapping("/cert")
 @Controller
-public class CertController extends BaseController{
+public class CertController extends BaseController {
     @Resource
     private CertApi certApi;
 
@@ -26,7 +26,8 @@ public class CertController extends BaseController{
     public String toEnroll() {
         return "cert/enroll";
     }
-    public String enroll(IssueCertRequestDto requestDto){
+
+    public String enroll(IssueCertRequestDto requestDto) {
         //certApi.issueCert()
         return null;
     }

@@ -3,6 +3,8 @@ package org.ca.ras.user.dto;
 import org.ca.common.user.enums.LoginNameType;
 import org.ligson.fw.core.facade.annotation.Param;
 import org.ligson.fw.core.facade.base.dto.BaseRequestDto;
+import org.ligson.fw.string.validator.EmailValidator;
+import org.ligson.fw.string.validator.PhoneValidator;
 
 /**
  * Created by ligson on 2016/4/26.
@@ -37,6 +39,16 @@ public class LoginRequestDto extends BaseRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static LoginNameType getByLoginName(String loginName) {
+        if (PhoneValidator.isMobile(loginName)) {
+            return LoginNameType.MOBILE;
+        } else if (EmailValidator.isValidEmail(loginName)) {
+            return LoginNameType.EMAIL;
+        } else {
+            return LoginNameType.NAME;
+        }
     }
 
     @Override

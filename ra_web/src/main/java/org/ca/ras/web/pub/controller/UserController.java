@@ -1,4 +1,4 @@
-package org.ca.ras.web.user.controller;
+package org.ca.ras.web.pub.controller;
 
 import org.ca.common.user.enums.LoginNameType;
 import org.ca.ras.user.dto.LoginRequestDto;
@@ -34,7 +34,7 @@ public class UserController extends BaseController {
     @RequestMapping("/login.html")
     public String toLogin() {
         logger.info("to login.........");
-        return "user/login";
+        return "pub/user/login";
     }
 
     @RequestMapping("/login.do")
@@ -76,7 +76,7 @@ public class UserController extends BaseController {
             Object value = request.getAttribute(name);
             logger.info("name={},value={},valueType={}", name, value, value.getClass().getName());
         }
-        return "user/register";
+        return "pub/user/register";
     }
 
     @RequestMapping("/register.do")

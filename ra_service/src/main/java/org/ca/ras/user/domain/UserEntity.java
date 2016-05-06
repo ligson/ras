@@ -1,5 +1,6 @@
 package org.ca.ras.user.domain;
 
+import org.ca.common.user.enums.UserRole;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.ligson.fw.core.common.idgenerator.DateRandomGenerator;
@@ -66,6 +67,14 @@ public class UserEntity extends BasicEntity {
      * 用户头像绝对http://
      */
     private String photo;
+
+    /***
+     * 角色
+     *
+     * @see org.ca.common.user.enums.UserRole
+     */
+    private Integer role = UserRole.USER.getCode();
+
 
     @Id
     @GeneratedValue(generator = "dr.id")
@@ -158,5 +167,14 @@ public class UserEntity extends BasicEntity {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    @Column(columnDefinition = "int comment '角色'")
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
     }
 }

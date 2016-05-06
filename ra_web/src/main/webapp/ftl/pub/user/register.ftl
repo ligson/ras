@@ -51,4 +51,4 @@
 </form>
 <div class="col-sm-2"></div>
 </@override>
-<@extends name="layout/index.ftl"/>
+<@extends name="pub/layout/index.ftl"/>

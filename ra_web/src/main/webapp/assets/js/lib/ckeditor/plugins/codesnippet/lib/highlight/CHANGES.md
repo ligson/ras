@@ -50,7 +50,7 @@ New features:
   [class reference][].
 
 - Language detection can now be restricted to a subset of languages relevant in
-  a given context — a web page or even a single highlighting call. This is
+  a given context — a org.ca.user.web page or even a single highlighting call. This is
   especially useful for node.js build that includes all the known languages.
   Another example is a StackOverflow-style site where users specify languages
   as tags rather than in the markdown-formatted code snippets. This is
@@ -310,7 +310,7 @@ Overall highlight.js currently supports 51 languages and 20 style themes.
 [node.js]: http://nodejs.org/
 [api]: http://softwaremaniacs.org/wiki/doku.php/highlight.js:api
 [p]: http://softwaremaniacs.org/blog/2012/05/10/http-and-json-in-highlight-js/en/
-[pojoaque]: http://web-cms-designs.com/ftopict-10-pojoaque-style-for-highlight-js-code-highlighter.html
+[pojoaque]: http://org.ca.user.web-cms-designs.com/ftopict-10-pojoaque-style-for-highlight-js-code-highlighter.html
 [ao]: https://github.com/angelolloqui
 [ar]: https://github.com/raleksandar
 [jc]: https://github.com/jcheng5

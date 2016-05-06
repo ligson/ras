@@ -29,4 +29,4 @@
 </form>
 <div class="col-sm-4"></div>
 </@override>
-<@extends name="layout/index.ftl"/>
+<@extends name="pub/layout/index.ftl"/>

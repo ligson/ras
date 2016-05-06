@@ -1,8 +1,10 @@
 package org.ca.ras.cert.domain;
 
 import org.ca.common.cert.enums.CertType;
+import org.hibernate.annotations.GenericGenerator;
 import org.ligson.fw.core.entity.BasicEntity;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -10,6 +12,8 @@ import java.util.Date;
  * Created by ligson on 2016/4/18.
  * CA证书
  */
+@Entity
+@Table(name = "cert")
 public class CertEntity extends BasicEntity {
     /***
      * 证书id
@@ -129,6 +133,10 @@ public class CertEntity extends BasicEntity {
      */
     private BigInteger userId;
 
+    @Id
+    @GeneratedValue(generator = "dr.id")
+    @GenericGenerator(name = "dr.id", strategy = "org.ligson.fw.core.common.idgenerator.DateRandomGenerator")
+    @Column(length = 32, precision = 32, scale = 0)
     public BigInteger getId() {
         return id;
     }

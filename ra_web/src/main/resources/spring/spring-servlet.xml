@@ -23,7 +23,7 @@
     <!-- 处理静态资源 end -->
 
     <!-- 定义JSP视图解析器 -->
-    <!-- <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- <bean id="jspViewResolver" class="org.springframework.org.ca.user.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/jsp/" /> <property name="suffix" value=".jsp"
         /> </bean> -->
 
@@ -62,7 +62,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <!--<mvc:mapping path="/*.html"/>-->
-            <bean class="org.ca.ras.web.common.interceptor.WebInterceptor"/>
+            <bean class="org.ca.ras.web.pub.interceptor.WebInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

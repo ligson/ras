@@ -1,7 +1,7 @@
 # Highlight.js
 
 Highlight.js highlights syntax in code examples on blogs, forums and,
-in fact, on any web page. It's very easy to use because it works
+in fact, on any org.ca.user.web page. It's very easy to use because it works
 automatically: finds blocks of code, detects a language, highlights it.
 
 Autodetection can be fine tuned when it fails by itself (see "Heuristics").

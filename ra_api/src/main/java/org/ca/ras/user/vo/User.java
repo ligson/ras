@@ -55,6 +55,11 @@ public class User implements Serializable {
      */
     private String photo;
 
+    /***
+     * 角色
+     */
+    private Integer role;
+
     public BigInteger getId() {
         return id;
     }
@@ -125,5 +130,13 @@ public class User implements Serializable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
     }
 }
