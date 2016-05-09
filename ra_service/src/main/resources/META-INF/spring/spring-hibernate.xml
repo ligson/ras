@@ -78,7 +78,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <aop:pointcut expression="execution(public * org.ca.ras..service.impl..*.*(..))"
+        <aop:pointcut expression="execution(* org.ca.ras.*.service..*.*(..))"
                       id="bussinessService1"/>
         <aop:advisor advice-ref="baseServiceAdvice" pointcut-ref="bussinessService1"/>
     </aop:config>

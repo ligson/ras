@@ -9,7 +9,7 @@
 <form id="register_form" class="form-horizontal col-sm-8" action="${basePath}user/register.do" method="post">
     <div class="form-group text-center">
         <p>
-            <small class="text-danger">${RequestParameters["errorMsg"]}</small>
+            <small class="text-danger">${errorMsg}</small>
         </p>
     </div>
     <div class="form-group">
@@ -51,4 +51,4 @@
 </form>
 <div class="col-sm-2"></div>
 </@override>
-<@extends name="pub/layout/index.ftl"/>
+<@extends name="layout/index.ftl"/>

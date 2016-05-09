@@ -49,6 +49,14 @@ public class EnrollCertBiz extends AbstractBiz<EnrollCertRequestDto, EnrollCertR
             setFailureResult(CertFailEnum.E_BIZ_21001);
             return false;
         }
+        entity.setSubjectDn(null);
+        entity.setStatus(null);
+        entity.setUserId(requestDto.getUserId());
+        n = certService.countByAnd(entity);
+        if (n > 0) {
+            setFailureResult(CertFailEnum.E_BIZ_21002);
+            return false;
+        }
         return true;
     }
 
@@ -71,6 +79,7 @@ public class EnrollCertBiz extends AbstractBiz<EnrollCertRequestDto, EnrollCertR
         CertEntity entity = (CertEntity) context.getAttr("entity");
         certService.add(entity);
         responseDto.setSuccess(true);
+        setSuccessResult();
         return true;
     }
 

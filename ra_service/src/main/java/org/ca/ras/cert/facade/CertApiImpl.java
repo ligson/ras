@@ -2,6 +2,7 @@ package org.ca.ras.cert.facade;
 
 import org.ca.ras.cert.api.CertApi;
 import org.ca.ras.cert.biz.EnrollCertBiz;
+import org.ca.ras.cert.biz.QueryCertBiz;
 import org.ca.ras.cert.dto.*;
 import org.ligson.fw.core.facade.base.result.Result;
 
@@ -15,6 +16,9 @@ public class CertApiImpl implements CertApi {
     @Resource
     private EnrollCertBiz enrollCertBiz;
 
+    @Resource
+    private QueryCertBiz queryCertBiz;
+
     @Override
     public Result<IssueCertResponseDto> issueCert(IssueCertRequestDto requestDto) {
         return null;
@@ -22,7 +26,7 @@ public class CertApiImpl implements CertApi {
 
     @Override
     public Result<QueryCertResponseDto> queryCert(QueryCertRequestDto requestDto) {
-        return null;
+        return queryCertBiz.operation(requestDto);
     }
 
     @Override

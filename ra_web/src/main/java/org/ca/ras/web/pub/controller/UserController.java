@@ -8,6 +8,7 @@ import org.ca.ras.user.dto.QueryUserRequestDto;
 import org.ca.ras.user.dto.QueryUserResponseDto;
 import org.ca.ras.user.dto.RegisterRequestDto;
 import org.ca.ras.user.dto.RegisterResponseDto;
+import org.ca.ras.user.vo.User;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.ligson.fw.string.encode.HashHelper;
 import org.ligson.fw.string.validator.EmailValidator;
@@ -54,16 +55,18 @@ public class UserController extends BaseController {
             for (String e : requestDto.getErrorFieldMap().values()) {
                 errorMsg += e + "<br/>";
             }
-            request.setAttribute("errorMsg", errorMsg);
-            return forward("/user/login.html");
+            model.addAttribute("errorMsg", errorMsg);
+            return redirect("/user/login.html");
         }
 
         Result<LoginResponseDto> result = userApi.login(requestDto);
         if (result.isSuccess()) {
+            User user = result.getData().getUser();
+            session.setAttribute("user", user);
             return redirect("/cert/index.html");
         } else {
-            request.setAttribute("errorMsg", result.getFailureMessage());
-            return forward("/user/login.html");
+            model.addAttribute("errorMsg", result.getFailureMessage());
+            return redirect("/user/login.html");
         }
     }
 
@@ -85,16 +88,16 @@ public class UserController extends BaseController {
         requestDto.setVersion("----------");
         if (!requestDto.validate()) {
             logger.error("参数不正确:{}", requestDto.getErrorFieldMap());
-            request.setAttribute("errorFieldMap", requestDto.getErrorFieldMap());
-            return forward("/user/register.html");
+            model.addAttribute("errorMsg", "参数不正确格式无效");
+            return redirect("/user/register.html");
         }
         //requestDto.is
         Result<RegisterResponseDto> result = userApi.register(requestDto);
         if (result.isSuccess()) {
             return redirect("/user/login.html");
         } else {
-            request.setAttribute("errorMsg", result.getFailureMessage());
-            return forward("/user/register.html");
+            model.addAttribute("errorMsg", result.getFailureMessage());
+            return redirect("/user/register.html");
         }
     }
 

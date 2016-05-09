@@ -6,6 +6,7 @@ import org.ca.ras.cert.service.CertService;
 import org.ligson.fw.core.service.impl.BaseServiceImpl;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
@@ -16,6 +17,7 @@ public class CertServiceImpl extends BaseServiceImpl<CertEntity> implements Cert
     @Resource
     private CertDao certDao;
 
+    @PostConstruct
     @Override
     public void initBaseDao() {
         baseDao = certDao;

@@ -1,6 +1,5 @@
 package org.ca.ras.web.admin.controller;
 
-import org.ca.common.user.enums.LoginNameType;
 import org.ca.common.user.enums.UserRole;
 import org.ca.ras.user.api.UserApi;
 import org.ca.ras.user.dto.LoginRequestDto;
@@ -34,7 +33,7 @@ public class AdminController extends BaseController {
     }
 
     @RequestMapping("/login.do")
-    public ModelAndView login(LoginRequestDto requestDto) {
+    public String login(LoginRequestDto requestDto) {
         ModelAndView modelAndView = new ModelAndView();
         String loginName = requestDto.getLoginName();
         requestDto.setLoginNameType(LoginRequestDto.getByLoginName(loginName));
@@ -45,28 +44,29 @@ public class AdminController extends BaseController {
             for (String e : requestDto.getErrorFieldMap().values()) {
                 errorMsg += e + "<br/>";
             }
-            modelAndView.setViewName("redirect:/admin/login.html");
-            modelAndView.addObject("errorMsg", errorMsg);
-            return modelAndView;
+            model.addAttribute("errorMsg", errorMsg);
+            return redirect("/admin/login.html");
         }
 
         Result<LoginResponseDto> result = userApi.login(requestDto);
         if (result.isSuccess()) {
             Integer role = result.getData().getUser().getRole();
             if (!role.equals(UserRole.RA_ADMIN.getCode())) {
-                modelAndView.setViewName("redirect:/admin/login.html");
-                modelAndView.addObject("errorMsg", "没有权限");
-                return modelAndView;
+                model.addAttribute("errorMsg", "没有权限");
+                return redirect("/admin/login.html");
             } else {
                 session.setAttribute("adminUser", result.getData().getUser());
             }
         } else {
-            modelAndView.setViewName("redirect:/admin/login.html");
-            modelAndView.addObject("errorMsg", result.getFailureMessage());
-            return modelAndView;
+            model.addAttribute("errorMsg", result.getFailureMessage());
+            return redirect("/admin/login.html");
         }
-        modelAndView.setViewName("redirect:/admin/certMgr/index.html");
-        modelAndView.addObject("errorMsg", result.getFailureMessage());
-        return modelAndView;
+        return redirect("/admin/certMgr/index.html");
+    }
+
+    @RequestMapping("/logout.do")
+    public String logout() {
+        session.invalidate();
+        return redirect("/admin/login.html");
     }
 }

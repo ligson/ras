@@ -6,7 +6,7 @@
 <div class="col-sm-4">
     <ul class="list-group">
         <li class="list-group-item active">功能列表</li>
-        <li class="list-group-item"><a href="${basePath}">申请用户证书</a></li>
+        <li class="list-group-item"><a href="${basePath}cert/enroll.html">申请用户证书</a></li>
         <li class="list-group-item"><a>查询用户证书</a></li>
         <li class="list-group-item"><a>获取用户获取</a></li>
         <li class="list-group-item"><a>更新用户证书</a></li>
@@ -19,4 +19,4 @@
 </div>
 <div class="col-sm-4"></div>
 </@override>
-<@extends name="layout/index.ftl"/>
+<@extends name="pub/layout/index.ftl"/>

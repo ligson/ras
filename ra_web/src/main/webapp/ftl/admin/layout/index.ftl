@@ -38,7 +38,7 @@
                        aria-expanded="false">快速导航 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="${basePath}user/login.html">用户中心</a></li>
-                        <li><a href="${basePath}admin/login.html">注册管理中心</a></li>
+                        <li><a href="#">注册管理中心</a></li>
                         <li><a href="#">证书管理中心</a></li>
                         <li><a href="#">密钥管理中心</a></li>
                     </ul>
