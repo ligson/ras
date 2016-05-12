@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 public class EnrollCertRequestDto extends BaseRequestDto {
     @Param(name = "用户id", required = true)
-    private BigInteger userId;
+    private String userId;
     @Param(name = "颁发给", required = true)
     private String subjectDn;
     @Param(name = "颁发给哈希", required = true)
@@ -19,11 +19,11 @@ public class EnrollCertRequestDto extends BaseRequestDto {
     @Param(name = "证书密码", required = true)
     private String certPin;
 
-    public BigInteger getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -14,7 +14,7 @@ public class ModifyUserRequestDto extends BaseRequestDto {
      * id
      */
     @Param(name = "id", required = true)
-    private BigInteger id;
+    private String id;
 
     /***
      * 生日
@@ -55,11 +55,11 @@ public class ModifyUserRequestDto extends BaseRequestDto {
      */
     private String photo;
 
-    public BigInteger getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(String id) {
         this.id = id;
     }
 
