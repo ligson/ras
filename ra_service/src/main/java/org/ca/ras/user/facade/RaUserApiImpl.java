@@ -1,8 +1,8 @@
 package org.ca.ras.user.facade;
 
+import org.ca.ras.user.api.RaUserApi;
 import org.ca.ras.user.dto.LoginRequestDto;
 import org.ca.ras.user.dto.LoginResponseDto;
-import org.ca.ras.user.api.UserApi;
 import org.ca.ras.user.biz.LoginBiz;
 import org.ca.ras.user.biz.QueryUserBiz;
 import org.ca.ras.user.biz.RegisterBiz;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 /**
  * Created by ligson on 2016/4/26.
  */
-public class UserApiImpl implements UserApi {
+public class RaUserApiImpl implements RaUserApi {
 
     @Resource
     private LoginBiz loginBiz;

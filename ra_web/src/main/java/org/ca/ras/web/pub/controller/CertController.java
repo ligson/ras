@@ -1,9 +1,8 @@
 package org.ca.ras.web.pub.controller;
 
-import org.ca.ras.cert.api.CertApi;
+import org.ca.ras.cert.api.RaCertApi;
 import org.ca.ras.cert.dto.EnrollCertRequestDto;
 import org.ca.ras.cert.dto.EnrollCertResponseDto;
-import org.ca.ras.cert.dto.IssueCertRequestDto;
 import org.ca.ras.user.vo.User;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.ligson.fw.string.encode.HashHelper;
@@ -20,7 +19,7 @@ import javax.annotation.Resource;
 @Controller
 public class CertController extends BaseController {
     @Resource
-    private CertApi certApi;
+    private RaCertApi raCertApi;
 
     @RequestMapping("/index.html")
     public String index() {
@@ -43,7 +42,7 @@ public class CertController extends BaseController {
         requestDto.setSubjectDnHashMd5(subjectDnHashMd5);
         User user = (User) session.getAttribute("user");
         requestDto.setUserId(user.getId());
-        Result<EnrollCertResponseDto> result = certApi.enrollCert(requestDto);
+        Result<EnrollCertResponseDto> result = raCertApi.enrollCert(requestDto);
         String errorMsg;
 
         if (result.isSuccess()) {

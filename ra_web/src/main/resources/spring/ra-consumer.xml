@@ -7,13 +7,16 @@
         http://code.alibabatech.com/schema/dubbo
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
+    <bean id="raDubboConfig"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:ra-dubbo.properties"/>
+    </bean>
     <dubbo:application name="${dubbo.application.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.ra.registry.address}"/>
 
-    <!-- 账户 -->
-    <dubbo:reference id="userApi"
-                     interface="org.ca.ras.user.api.RaUserApi"
-                     timeout="${dubbo.consumer.timeout}"
-                     version="${dubbo.iterface.version}"/>
     <!--直连增加url="${dubbo.registry.address}"-->
+    <dubbo:reference id="raCertApi"
+                     interface="org.ca.ras.cert.api.RaCertApi"
+                     timeout="${dubbo.ra.consumer.timeout}"
+                     version="${dubbo.ra.iterface.version}"/>
 </beans>

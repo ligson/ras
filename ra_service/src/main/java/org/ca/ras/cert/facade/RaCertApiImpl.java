@@ -1,6 +1,6 @@
 package org.ca.ras.cert.facade;
 
-import org.ca.ras.cert.api.CertApi;
+import org.ca.ras.cert.api.RaCertApi;
 import org.ca.ras.cert.biz.EnrollCertBiz;
 import org.ca.ras.cert.biz.QueryCertBiz;
 import org.ca.ras.cert.dto.*;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 /**
  * Created by ligson on 2016/4/25.
  */
-public class CertApiImpl implements CertApi {
+public class RaCertApiImpl implements RaCertApi {
 
     @Resource
     private EnrollCertBiz enrollCertBiz;

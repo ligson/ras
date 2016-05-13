@@ -1,6 +1,6 @@
 package ras.test.base;
 
-import org.ca.ras.user.api.UserApi;
+import org.ca.ras.user.api.RaUserApi;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ public class DubboBaseTest {
     protected static Logger logger;
     static ApplicationContext applicationContext = new ClassPathXmlApplicationContext
             ("spring-conf.xml");
-    protected static UserApi userApi = (UserApi) applicationContext.getBean("userApi");
+    protected static RaUserApi raUserApi = (RaUserApi) applicationContext.getBean("raUserApi");
 
     public DubboBaseTest() {
         logger = LoggerFactory.getLogger(this.getClass());

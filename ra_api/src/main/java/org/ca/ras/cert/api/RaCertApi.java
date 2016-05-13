@@ -7,7 +7,7 @@ import org.ligson.fw.core.facade.base.result.Result;
  * Created by ligson on 2016/4/25.
  * CA证书api
  */
-public interface CertApi {
+public interface RaCertApi {
 
     /***
      * 申请一张证书

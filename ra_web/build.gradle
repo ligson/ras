@@ -11,8 +11,9 @@ ext {
 dependencies {
     compile project(":ra_api")
     //compile project(":fw_core")
-    //compile project(":ca_api")
+
     compile "org.ligson.fw:fw_web:1.0-SNAPSHOT"
+    compile "org.ca.cas:ca_api:1.0-SNAPSHOT"
     //dubbo
     compile("com.alibaba:dubbo:${dubboVersion}") {
         exclude(group: "org.springframework", module: "spring")

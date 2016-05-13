@@ -1,9 +1,9 @@
 package org.ca.ras.web.admin.controller;
 
 import org.ca.common.user.enums.UserRole;
-import org.ca.ras.user.api.UserApi;
-import org.ca.ras.user.dto.LoginRequestDto;
-import org.ca.ras.user.dto.LoginResponseDto;
+import org.ca.cas.user.api.UserApi;
+import org.ca.cas.user.dto.LoginRequestDto;
+import org.ca.cas.user.dto.LoginResponseDto;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.ligson.fw.string.encode.HashHelper;
 import org.ligson.fw.web.controller.BaseController;
@@ -34,7 +34,6 @@ public class AdminController extends BaseController {
 
     @RequestMapping("/login.do")
     public String login(LoginRequestDto requestDto) {
-        ModelAndView modelAndView = new ModelAndView();
         String loginName = requestDto.getLoginName();
         requestDto.setLoginNameType(LoginRequestDto.getByLoginName(loginName));
         requestDto.setPassword(HashHelper.md5(requestDto.getPassword()));

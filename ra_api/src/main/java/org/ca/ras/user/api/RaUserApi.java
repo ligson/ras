@@ -11,7 +11,7 @@ import org.ligson.fw.core.facade.base.result.Result;
 /**
  * Created by ligson on 2016/4/25.
  */
-public interface UserApi {
+public interface RaUserApi {
 
     Result<RegisterResponseDto> register(RegisterRequestDto requestDto);
 

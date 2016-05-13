@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by ligson on 2016/4/27.
  */
-public class UserApiTest extends DubboBaseTest {
+public class RaUserApiTest extends DubboBaseTest {
     @Test
     public void register() {
         RegisterRequestDto requestDto = new RegisterRequestDto();
@@ -22,7 +22,7 @@ public class UserApiTest extends DubboBaseTest {
         requestDto.setMobile("18210344122");
         requestDto.setEmail("lijinsheng@lecxe.com");
         requestDto.setSex(true);
-        Result<RegisterResponseDto> response = userApi.register(requestDto);
+        Result<RegisterResponseDto> response = raUserApi.register(requestDto);
         testResult(response);
         println(response.getData().getId());
     }

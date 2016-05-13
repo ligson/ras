@@ -17,15 +17,15 @@
     <dubbo:provider timeout="${dubbo.provider.timeout}" filter="invokeFilter"/>
 
     <!-- 用户 -->
-    <dubbo:service interface="org.ca.ras.user.api.UserApi"
-                   ref="userApi" version="${dubbo.iterface.version}"/>
-    <bean id="userApi"
-          class="org.ca.ras.user.facade.UserApiImpl"/>
+    <dubbo:service interface="org.ca.ras.user.api.RaUserApi"
+                   ref="raUserApi" version="${dubbo.iterface.version}"/>
+    <bean id="raUserApi"
+          class="org.ca.ras.user.facade.RaUserApiImpl"/>
     <!--证书-->
-    <dubbo:service interface="org.ca.ras.cert.api.CertApi"
-                   ref="certApi" version="${dubbo.iterface.version}"/>
-    <bean id="certApi"
-          class="org.ca.ras.cert.facade.CertApiImpl"/>
+    <dubbo:service interface="org.ca.ras.cert.api.RaCertApi"
+                   ref="raCertApi" version="${dubbo.iterface.version}"/>
+    <bean id="raCertApi"
+          class="org.ca.ras.cert.facade.RaCertApiImpl"/>
 
 </beans>
 
