@@ -119,6 +119,8 @@ public class QueryCertRequestDto extends BaseQueryPageRequestDto {
      */
     private String certPin;
 
+    private String userId;
+
     /***
      * 证书类型
      */
@@ -340,10 +342,18 @@ public class QueryCertRequestDto extends BaseQueryPageRequestDto {
         this.certType = certType;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "Cert{" +
-                "id=" + id +
+        return "QueryCertRequestDto{" +
+                "id='" + id + '\'' +
                 ", status=" + status +
                 ", reqDate=" + reqDate +
                 ", reqBuf='" + reqBuf + '\'' +
@@ -369,6 +379,7 @@ public class QueryCertRequestDto extends BaseQueryPageRequestDto {
                 ", renewalNextIdSerialNumber='" + renewalNextIdSerialNumber + '\'' +
                 ", reqOverrideValidity=" + reqOverrideValidity +
                 ", certPin='" + certPin + '\'' +
+                ", userId='" + userId + '\'' +
                 ", certType=" + certType +
                 '}';
     }

@@ -1,20 +1,23 @@
 package org.ca.ras.web.admin.controller;
 
 import org.ca.cas.cert.api.CertApi;
+import org.ca.cas.cert.dto.*;
 import org.ca.cas.cert.dto.EnrollCertRequestDto;
 import org.ca.cas.cert.dto.EnrollCertResponseDto;
-import org.ca.cas.cert.dto.ListKeyStoreRequestDto;
-import org.ca.cas.cert.dto.ListKeyStoreResponseDto;
+import org.ca.cas.cert.dto.QueryCertRequestDto;
+import org.ca.cas.cert.dto.QueryCertResponseDto;
 import org.ca.cas.cert.vo.Cert;
+import org.ca.cas.cert.vo.KeyPair;
 import org.ca.cas.user.api.UserApi;
+import org.ca.cas.user.dto.ModifyUserRequestDto;
+import org.ca.cas.user.dto.ModifyUserResponseDto;
 import org.ca.cas.user.dto.QueryUserRequestDto;
 import org.ca.cas.user.dto.QueryUserResponseDto;
 import org.ca.cas.user.vo.User;
-import org.ca.common.cert.enums.CertStatus;
-import org.ca.common.user.enums.UserRole;
 import org.ca.ras.cert.api.RaCertApi;
-import org.ca.ras.cert.dto.QueryCertRequestDto;
-import org.ca.ras.cert.dto.QueryCertResponseDto;
+import org.ca.ras.cert.dto.*;
+import org.ca.ras.cert.dto.ModifyCertRequestDto;
+import org.ca.ras.cert.dto.ModifyCertResponseDto;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.ligson.fw.string.encode.HashHelper;
 import org.ligson.fw.web.controller.BaseController;
@@ -43,6 +46,7 @@ public class CertMgrController extends BaseController {
     @Resource
     private UserApi userApi;
 
+
     @RequestMapping("/index.html")
     public String index() {
         User user = (User) session.getAttribute("adminUser");
@@ -55,6 +59,11 @@ public class CertMgrController extends BaseController {
                 return redirect("/admin/certMgr/initAdminCert.html");
             }
         }
+        ListUserKeyRequestDto listUserKeyRequestDto = new ListUserKeyRequestDto();
+        listUserKeyRequestDto.setAdminId(user.getId());
+        Result<ListUserKeyResponseDto> keyQuery = certApi.listUserKey(listUserKeyRequestDto);
+        List<KeyPair> keyPairs = keyQuery.getData().getKeyPairs();
+        request.setAttribute("pairs", keyPairs);
         return "admin/certMgr/index";
     }
 
@@ -126,14 +135,14 @@ public class CertMgrController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/certList.json")
-    public WebResult certList(QueryCertRequestDto requestDto) {
+    public WebResult certList(org.ca.ras.cert.dto.QueryCertRequestDto requestDto) {
         String pageString = request.getParameter("page");
         int page = Integer.parseInt(pageString);
         requestDto.setPageNum(page);
         String rowString = request.getParameter("rows");
         int rows = Integer.parseInt(rowString);
         requestDto.setPageSize(rows);
-        Result<QueryCertResponseDto> result = raCertApi.queryCert(requestDto);
+        Result<org.ca.ras.cert.dto.QueryCertResponseDto> result = raCertApi.queryCert(requestDto);
         if (result.isSuccess()) {
             webResult.put("total", result.getData().getTotalCount());
             webResult.put("rows", result.getData().getCerts());
@@ -149,24 +158,59 @@ public class CertMgrController extends BaseController {
         return "admin/certMgr/waitApproveCertList";
     }
 
+    @RequestMapping("/approveCert.json")
     @ResponseBody
-    @RequestMapping("/waitApproveCertList.json")
-    public WebResult waitApproveCertList(QueryCertRequestDto requestDto) {
-        String pageString = request.getParameter("page");
-        int page = Integer.parseInt(pageString);
-        requestDto.setPageNum(page);
-        String rowString = request.getParameter("rows");
-        int rows = Integer.parseInt(rowString);
-        requestDto.setPageSize(rows);
-        requestDto.setStatus(CertStatus.ENROLL.getCode());
-        Result<QueryCertResponseDto> result = raCertApi.queryCert(requestDto);
-        if (result.isSuccess()) {
-            webResult.put("rows", result.getData().getCerts());
-            webResult.put("total", result.getData().getTotalCount());
+    public WebResult approveCert(String id, String aliase) {
+        org.ca.ras.cert.dto.QueryCertRequestDto queryCertRequestDto = new org.ca.ras.cert.dto.QueryCertRequestDto();
+        queryCertRequestDto.setId(id);
+        queryCertRequestDto.setPageAble(false);
+        Result<org.ca.ras.cert.dto.QueryCertResponseDto> queryResult = raCertApi.queryCert(queryCertRequestDto);
+        if (!queryResult.isSuccess()) {
+            webResult.setError(queryResult);
+            return webResult;
+        }
+
+        org.ca.ras.cert.vo.Cert cert = queryResult.getData().getCert();
+        User user = (User) session.getAttribute("adminUser");
+        GenCsrRequestDto genCsrRequestDto = new GenCsrRequestDto();
+        genCsrRequestDto.setAdminId(user.getId());
+        genCsrRequestDto.setAliase(aliase);
+        genCsrRequestDto.setSubjectDn(cert.getSubjectDn());
+        Result<GenCsrResponseDto> genResult = certApi.genCsr(genCsrRequestDto);
+
+        if (genResult.isSuccess()) {
             webResult.setSuccess(true);
+            ApproveCertRequestDto requestDto = new ApproveCertRequestDto();
+            requestDto.setCertId(id);
+            requestDto.setAdminId(user.getId());
+            Result<ApproveCertResponseDto> approveCertResult = raCertApi.approveCert(requestDto);
+            if (!approveCertResult.isSuccess()) {
+                webResult.setError(approveCertResult);
+                return webResult;
+            }
+            org.ca.ras.cert.dto.ModifyCertRequestDto modifyCertRequestDto = new ModifyCertRequestDto();
+            modifyCertRequestDto.setId(id);
+            modifyCertRequestDto.setReqBuf(genResult.getData().getCsr());
+            modifyCertRequestDto.setReqBufType(1);
+            Result<ModifyCertResponseDto> modifyResult = raCertApi.modifyCert(modifyCertRequestDto);
+            if (!modifyResult.isSuccess()) {
+                webResult.setError(modifyResult);
+                return webResult;
+            }
+
+            ModifyUserRequestDto requestDto1 = new ModifyUserRequestDto();
+            requestDto1.setId(cert.getUserId());
+            requestDto1.setFatherUserId(user.getId());
+            Result<ModifyUserResponseDto> modifyUserResult = userApi.modify(requestDto1);
+            if (!modifyUserResult.isSuccess()) {
+                webResult.setError(modifyUserResult);
+                return webResult;
+            }
         } else {
-            webResult.setError(result);
+            webResult.setError(genResult);
         }
         return webResult;
+
     }
+
 }

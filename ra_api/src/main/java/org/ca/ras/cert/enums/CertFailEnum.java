@@ -11,6 +11,7 @@ public class CertFailEnum extends FailureCodeEnum {
 
     public static final CertFailEnum E_BIZ_21001 = new CertFailEnum("E_BIZ_21001", "证书主题已存在");
     public static final CertFailEnum E_BIZ_21002 = new CertFailEnum("E_BIZ_21002", "用户签名证书已存在");
+    public static final CertFailEnum E_BIZ_21003 = new CertFailEnum("E_BIZ_21003", "证书不存在");
 
 
     /**

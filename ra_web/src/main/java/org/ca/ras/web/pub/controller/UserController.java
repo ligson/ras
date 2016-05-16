@@ -1,14 +1,10 @@
 package org.ca.ras.web.pub.controller;
 
 import org.ca.cas.user.api.UserApi;
+import org.ca.cas.user.dto.*;
 import org.ca.common.user.enums.LoginNameType;
-import org.ca.cas.user.dto.LoginRequestDto;
-import org.ca.cas.user.dto.LoginResponseDto;
-import org.ca.cas.user.dto.QueryUserRequestDto;
-import org.ca.cas.user.dto.QueryUserResponseDto;
-import org.ca.cas.user.dto.RegisterRequestDto;
-import org.ca.cas.user.dto.RegisterResponseDto;
 import org.ca.cas.user.vo.User;
+import org.ca.common.user.enums.UserRole;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.ligson.fw.string.encode.HashHelper;
 import org.ligson.fw.string.validator.EmailValidator;
@@ -84,16 +80,20 @@ public class UserController extends BaseController {
 
     @RequestMapping("/register.do")
     public String register(RegisterRequestDto requestDto) {
-        //requestDto.setPassword(HashHelper.md5(requestDto.getPassword()));
         requestDto.setVersion("----------");
         if (!requestDto.validate()) {
             logger.error("参数不正确:{}", requestDto.getErrorFieldMap());
             model.addAttribute("errorMsg", "参数不正确格式无效");
             return redirect("/user/register.html");
         }
-        //requestDto.is
+        requestDto.setPassword(HashHelper.md5(requestDto.getPassword()));
         Result<RegisterResponseDto> result = userApi.register(requestDto);
         if (result.isSuccess()) {
+            ModifyUserRequestDto modifyUserRequestDto = new ModifyUserRequestDto();
+            modifyUserRequestDto.setRole(UserRole.USER.getCode());
+            modifyUserRequestDto.setId(result.getData().getId());
+            Result<ModifyUserResponseDto> modifyResult = userApi.modify(modifyUserRequestDto);
+            logger.debug("modify result:{}", modifyResult);
             return redirect("/user/login.html");
         } else {
             model.addAttribute("errorMsg", result.getFailureMessage());

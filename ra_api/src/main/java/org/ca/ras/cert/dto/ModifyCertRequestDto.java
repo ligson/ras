@@ -1,5 +1,6 @@
 package org.ca.ras.cert.dto;
 
+import org.ca.common.cert.enums.CertType;
 import org.ligson.fw.core.facade.base.dto.BaseRequestDto;
 
 import java.math.BigInteger;
@@ -19,6 +20,22 @@ public class ModifyCertRequestDto extends BaseRequestDto {
      * @see org.ca.common.cert.enums.CertStatus
      */
     private Integer status;
+    /***
+     * 申请日期
+     */
+    private Date reqDate;
+    /***
+     * CSR
+     */
+    private String reqBuf;
+    /***
+     * CSR类型
+     */
+    private Integer reqBufType;
+    /***
+     * CSR备注
+     */
+    private String reqComment;
     /***
      * 证书批准日期
      */
@@ -102,6 +119,17 @@ public class ModifyCertRequestDto extends BaseRequestDto {
      */
     private String certPin;
 
+    /***
+     * 证书类型
+     *
+     * @see CertType
+     */
+    private Integer certType;
+    /***
+     * 用户id
+     */
+    private String userId;
+
     public String getId() {
         return id;
     }
@@ -116,6 +144,38 @@ public class ModifyCertRequestDto extends BaseRequestDto {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getReqDate() {
+        return reqDate;
+    }
+
+    public void setReqDate(Date reqDate) {
+        this.reqDate = reqDate;
+    }
+
+    public String getReqBuf() {
+        return reqBuf;
+    }
+
+    public void setReqBuf(String reqBuf) {
+        this.reqBuf = reqBuf;
+    }
+
+    public Integer getReqBufType() {
+        return reqBufType;
+    }
+
+    public void setReqBufType(Integer reqBufType) {
+        this.reqBufType = reqBufType;
+    }
+
+    public String getReqComment() {
+        return reqComment;
+    }
+
+    public void setReqComment(String reqComment) {
+        this.reqComment = reqComment;
     }
 
     public Date getApproveDate() {
@@ -278,11 +338,31 @@ public class ModifyCertRequestDto extends BaseRequestDto {
         this.certPin = certPin;
     }
 
+    public Integer getCertType() {
+        return certType;
+    }
+
+    public void setCertType(Integer certType) {
+        this.certType = certType;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "ModifyCertRequestDto{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", status=" + status +
+                ", reqDate=" + reqDate +
+                ", reqBuf='" + reqBuf + '\'' +
+                ", reqBufType=" + reqBufType +
+                ", reqComment='" + reqComment + '\'' +
                 ", approveDate=" + approveDate +
                 ", rejectDate=" + rejectDate +
                 ", signDate=" + signDate +
@@ -303,6 +383,8 @@ public class ModifyCertRequestDto extends BaseRequestDto {
                 ", renewalNextIdSerialNumber='" + renewalNextIdSerialNumber + '\'' +
                 ", reqOverrideValidity=" + reqOverrideValidity +
                 ", certPin='" + certPin + '\'' +
+                ", certType=" + certType +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

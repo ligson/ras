@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
+import static javax.persistence.FetchType.LAZY;
+
 /**
  * Created by ligson on 2016/4/18.
  * CA证书
@@ -165,7 +167,9 @@ public class CertEntity extends BasicEntity {
         this.reqDate = reqDate;
     }
 
-    @Column(name = "req_buf")
+    @Lob
+    @Basic(fetch = LAZY)
+    @Column(name = "reg_buf", length = 1048576)
     public String getReqBuf() {
         return reqBuf;
     }
@@ -201,7 +205,7 @@ public class CertEntity extends BasicEntity {
         this.approveDate = approveDate;
     }
 
-    @Column(name = "reject_after")
+    @Column(name = "reject_date")
     public Date getRejectDate() {
         return rejectDate;
     }
@@ -219,7 +223,9 @@ public class CertEntity extends BasicEntity {
         this.signDate = signDate;
     }
 
-    @Column(name = "sign_buf")
+    @Lob
+    @Basic(fetch = LAZY)
+    @Column(name = "sign_buf", length = 1048576)
     public String getSignBuf() {
         return signBuf;
     }
@@ -228,7 +234,9 @@ public class CertEntity extends BasicEntity {
         this.signBuf = signBuf;
     }
 
-    @Column(name = "sign_buf_p7")
+    @Lob
+    @Basic(fetch = LAZY)
+    @Column(name = "sign_buf_p7", length = 1048576)
     public String getSignBufP7() {
         return signBufP7;
     }

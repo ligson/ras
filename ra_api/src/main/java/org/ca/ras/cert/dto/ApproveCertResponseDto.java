@@ -3,8 +3,7 @@ package org.ca.ras.cert.dto;
 import org.ligson.fw.core.facade.base.dto.BaseResponseDto;
 
 /**
- * Created by ligson on 2016/4/25.
+ * Created by ligson on 2016/5/16.
  */
-public class ModifyCertResponseDto extends BaseResponseDto {
-
+public class ApproveCertResponseDto extends BaseResponseDto {
 }

@@ -33,4 +33,9 @@ public interface RaCertApi {
      */
     Result<EnrollCertResponseDto> enrollCert(EnrollCertRequestDto requestDto);
 
+    Result<ApproveCertResponseDto> approveCert(ApproveCertRequestDto requestDto);
+
+    Result<RejectCertResponseDto> rejectCert(RejectCertRequestDto requestDto);
+
+    Result<ModifyCertResponseDto> modifyCert(ModifyCertRequestDto requestDto);
 }
