@@ -12,14 +12,17 @@
 </table>
 <div id="approveCertDlg" title="批准证书" class="easyui-dialog col-sm-4" closed="true" style="padding:30px;">
     <div class="container-fluid">
-        <form class="form-horizontal  easyui-form" action="${basePath}admin/certMgr/approveCert.json" id="approveCertForm">
+        <form class="form-horizontal  easyui-form" action="${basePath}admin/certMgr/approveCert.json"
+              id="approveCertForm">
             <input type="hidden" name="id" value=""/>
             <div class="form-group row">
                 <label class="col-sm-3">选择密钥</label>
                 <div class="col-sm-6">
                     <select class="easyui-combobox form-control" name="aliase" editable="false" required="true">
                         <#list pairs as pair>
-                            <option value="${pair.aliase}">${(pair.type==1)?string("SM2","RSA")}-${pair.keySize}(${pair.aliase})</option>
+                            <option value="${pair.aliase}">${(pair.type==1)?string("SM2","RSA")}
+                                -${pair.keySize}(${pair.aliase})
+                            </option>
                         </#list>
                     </select>
                 </div>
@@ -30,6 +33,11 @@
                    onclick="$('#approveCertDlg').dialog('close')">取消</a>
             </div>
         </form>
+    </div>
+</div>
+<div id="viewCsrDlg" title="查看csr" class="easyui-dialog" closed="true" style="padding:30px;width:300px;">
+    <div class="container-fluid">
+    <textarea cols="100" rows="5" class="form-control" id="csrTxt"></textarea>
     </div>
 </div>
 </@override>

@@ -134,6 +134,6 @@ function approveCert() {
 function viewCsr(rowIdx) {
     var userGrid = $("#tt");
     var row = userGrid.datagrid("getRows")[rowIdx];
-    alert(row.reqBuf);
-
+    $("#csrTxt").empty().append(row.reqBuf);
+    $("#viewCsrDlg").dialog("open");
 }

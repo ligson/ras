@@ -54,7 +54,7 @@ public class CertController extends BaseController {
         String o = request.getParameter("o");
         String ou = request.getParameter("ou");
         String cn = request.getParameter("cn");
-        String subjectDn = "o=" + o + ";ou=" + ou + ";cn=" + cn;
+        String subjectDn = "o=" + o + ",ou=" + ou + ",cn=" + cn;
         String subjectDnHashMd5 = HashHelper.md5(subjectDn);
         requestDto.setSubjectDn(subjectDn);
         requestDto.setSubjectDnHashMd5(subjectDnHashMd5);
@@ -79,18 +79,26 @@ public class CertController extends BaseController {
     }
 
     @RequestMapping("/enrollCert.html")
-    public void toEnrollCert() {
-
+    public String toEnrollCert() {
+        //MIICVjCCAT4CAQAwEzERMA8GA1UECgwIbGVjeGU7b3UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCC0OJdAyIrSg/8QFJPvFZL9cx+kf+31PuKkH1de2nk/0zXRWDxC8r7k8R53cW0Bx9wSFfInKFza3uiRts8x5drnThn2ecvktNpRMHgEgu9C6+y1+thJlZ4pCrxMX82bwmNJHTZ81xmau7Kb3Z3aPVTWX3ryDFHMPho8TcYWFQgucFczr+V+XQ5CR/mB6RR/uXZoVWUVCiCnwJclt8osvKNtRYf7QvlhWiD0lzyt87SlhYIZi+zbtdstlSONSOJggsCSxiBzwfIA6DeGWbWAo3OSMm1n8aetc02y05xcVEjE9QtCEmYC3S860xU6L6Yq/UzWoFXhK25JwUW5lUL8DpzAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBAD6FRqmyUWH9yUYSI8KCbzN5tPCY3+BNaZjI8zTDapgUpG+Nyjtq15L84LKOH85sMS4IIKWMG+OuI8sn2El5ppYpPL8FPLiF88TRSkNLT5qYkpYtxL/xP4y9uy5rw2QZ4QvGd2TPPrmxENb91U79Z7uFzmBNQGL027sE+L0yh2qCCnOktkyChDGoUg15xcXwnJcp6xE4YLToUyjpQLKQT1o0hlIF1R13fpuBStgFuPc24dX65c9Tur2GCYVX4iqYax8nMwHwXxj3tujc9TGCbhdqMfmPtbbSSxoK0KhsgBDBRzXSP7KZWGorIRtQGzVB6aPPAMfTSeLWFS0m03o6lek=
+        return "pub/cert/enrollCert";
     }
 
     @RequestMapping("/enrollCert.do")
     public String enrollCert(String csr) {
         User user = (User) session.getAttribute("user");
-        String fid = user.getFatherUserId();
         QueryUserRequestDto queryUserRequestDto = new QueryUserRequestDto();
-        queryUserRequestDto.setId(fid);
+        queryUserRequestDto.setId(user.getId());
         queryUserRequestDto.setPageAble(false);
         Result<QueryUserResponseDto> queryUserResult = userApi.query(queryUserRequestDto);
+        user = queryUserResult.getData().getUser();
+
+
+        String fid = user.getFatherUserId();
+        queryUserRequestDto = new QueryUserRequestDto();
+        queryUserRequestDto.setId(fid);
+        queryUserRequestDto.setPageAble(false);
+        queryUserResult = userApi.query(queryUserRequestDto);
         User fUser = queryUserResult.getData().getUser();
         QueryCertRequestDto queryCertRequestDto = new QueryCertRequestDto();
         queryCertRequestDto.setCertType(CertType.SIGN.getCode());
@@ -107,8 +115,8 @@ public class CertController extends BaseController {
         org.ca.cas.cert.dto.EnrollCertRequestDto enrollCertRequestDto = new org.ca.cas.cert.dto.EnrollCertRequestDto();
         enrollCertRequestDto.setCsr(csr);
         enrollCertRequestDto.setStartDate(new Date());
-        enrollCertRequestDto.setIssueDn(issueCert.getIssuerDn());
-        enrollCertRequestDto.setIssueDnHashMd5(issueCert.getIssuerDnHashMd5());
+        enrollCertRequestDto.setIssueDn(issueCert.getSubjectDn());
+        enrollCertRequestDto.setIssueDnHashMd5(issueCert.getSubjectDnHashMd5());
         enrollCertRequestDto.setUserId(user.getId());
         enrollCertRequestDto.setCertPin(userCert.getCertPin());
         enrollCertRequestDto.setSubjectDn(userCert.getSubjectDn());
@@ -140,13 +148,13 @@ public class CertController extends BaseController {
 
     @RequestMapping("/download.do")
     public void download(String certId) throws IOException {
-        QueryCertRequestDto requestDto = new QueryCertRequestDto();
+        org.ca.ras.cert.dto.QueryCertRequestDto requestDto = new org.ca.ras.cert.dto.QueryCertRequestDto();
         requestDto.setPageAble(false);
         requestDto.setId(certId);
-        Result<QueryCertResponseDto> queryResult = certApi.queryCert(requestDto);
+        Result<org.ca.ras.cert.dto.QueryCertResponseDto> queryResult = raCertApi.queryCert(requestDto);
         if (queryResult.isSuccess()) {
             if (queryResult.getData().getSuccess()) {
-                Cert cert = queryResult.getData().getCert();
+                org.ca.ras.cert.vo.Cert cert = queryResult.getData().getCert();
                 byte[] certBuf = Base64.decodeBase64(cert.getSignBuf());
                 response.setContentType("application/x-x509-ca-cert");
                 response.setHeader("Content-Disposition", "attachment;fileName=" + cert.getSerialNumber() + ".crt");
