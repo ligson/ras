@@ -1,10 +1,16 @@
 package org.ca.ras.web.pub.controller;
 
+import org.ca.cas.cert.api.CertApi;
+import org.ca.cas.cert.dto.QueryCertRequestDto;
+import org.ca.cas.cert.dto.QueryCertResponseDto;
+import org.ca.cas.cert.vo.Cert;
 import org.ca.cas.user.api.UserApi;
 import org.ca.cas.user.dto.*;
+import org.ca.common.cert.enums.CertStatus;
 import org.ca.common.user.enums.LoginNameType;
 import org.ca.cas.user.vo.User;
 import org.ca.common.user.enums.UserRole;
+import org.ca.ras.cert.api.RaCertApi;
 import org.ligson.fw.core.facade.base.result.Result;
 import org.ligson.fw.string.encode.HashHelper;
 import org.ligson.fw.string.validator.EmailValidator;
@@ -27,10 +33,15 @@ import java.util.Enumeration;
 public class UserController extends BaseController {
     @Resource
     private UserApi userApi;
+    @Resource
+    private CertApi certApi;
 
     @RequestMapping("/login.html")
     public String toLogin() {
         logger.info("to login.........");
+        if (session.getAttribute("user") != null) {
+            return redirect("/cert/index.html");
+        }
         return "pub/user/login";
     }
 
@@ -59,6 +70,16 @@ public class UserController extends BaseController {
         if (result.isSuccess()) {
             User user = result.getData().getUser();
             session.setAttribute("user", user);
+            QueryCertRequestDto certRequestDto = new QueryCertRequestDto();
+            certRequestDto.setPageAble(false);
+            certRequestDto.setUserId(user.getId());
+            certRequestDto.setStatus(CertStatus.VALID.getCode());
+            Result<QueryCertResponseDto> queryResult = certApi.queryCert(certRequestDto);
+            if (queryResult.isSuccess()) {
+                Cert cert = queryResult.getData().getCert();
+                session.setAttribute("cert", cert);
+            }
+
             return redirect("/cert/index.html");
         } else {
             model.addAttribute("errorMsg", result.getFailureMessage());
@@ -114,6 +135,12 @@ public class UserController extends BaseController {
             webResult.put("valid", false);
         }
         return webResult;
+    }
+
+    @RequestMapping("/logout.do")
+    public String logout() {
+        session.invalidate();
+        return redirect("/user/login.html");
     }
 
 }

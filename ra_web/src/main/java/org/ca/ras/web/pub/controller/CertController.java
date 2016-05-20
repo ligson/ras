@@ -46,6 +46,17 @@ public class CertController extends BaseController {
 
     @RequestMapping("/enroll.html")
     public String toEnroll() {
+        User user = (User) session.getAttribute("user");
+        org.ca.ras.cert.dto.QueryCertRequestDto requestDto = new org.ca.ras.cert.dto.QueryCertRequestDto();
+        requestDto.setUserId(user.getId());
+        requestDto.setPageAble(false);
+        Result<org.ca.ras.cert.dto.QueryCertResponseDto> queryResult = raCertApi.queryCert(requestDto);
+        if (queryResult.isSuccess()) {
+            if (queryResult.getData().getCert() != null) {
+                request.setAttribute("message", "证书已申请");
+                return "pub/cert/message";
+            }
+        }
         return "pub/cert/enroll";
     }
 
@@ -165,6 +176,15 @@ public class CertController extends BaseController {
         }
         response.setContentType("text/html");
         response.getOutputStream().println("证书下载失败:" + queryResult.getFailureMessage());
+    }
+
+    @RequestMapping("/view.html")
+    public String toViewUserCert() {
+        if (session.getAttribute("cert") == null) {
+            request.setAttribute("message", "用户证书不存在");
+            return "pub/cert/message";
+        }
+        return "pub/cert/view";
     }
 
 

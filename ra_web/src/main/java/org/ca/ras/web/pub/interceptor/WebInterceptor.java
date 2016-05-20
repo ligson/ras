@@ -1,5 +1,7 @@
 package org.ca.ras.web.pub.interceptor;
 
+import org.ca.ras.web.admin.controller.CertMgrController;
+import org.ca.ras.web.pub.controller.CertController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
@@ -24,6 +26,20 @@ public class WebInterceptor implements HandlerInterceptor {
             String methodName = method.getName();
             Object bean = handlerMethod.getBean();
             logger.debug("请求url:{}", request.getRequestURI());
+            if (bean instanceof CertController) {
+                Object token = request.getSession().getAttribute("user");
+                if (token == null) {
+                    response.sendRedirect("/user/login.html");
+                    return false;
+                }
+            }
+            if (bean instanceof CertMgrController) {
+                Object token = request.getSession().getAttribute("adminUser");
+                if (token == null) {
+                    response.sendRedirect("/admin/login.html");
+                    return false;
+                }
+            }
         }
         return true;
     }
