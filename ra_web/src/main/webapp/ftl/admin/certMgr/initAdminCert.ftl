@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="form-group text-center">
-            <input type="submit" class="btn-info" value="提交"/>
+            <input type="submit" class="btn btn-info" value="提交"/>(您还可以<a href="${basePath}uploadCaCert.html">直接导入</a>)
         </div>
     </form>
 </div>

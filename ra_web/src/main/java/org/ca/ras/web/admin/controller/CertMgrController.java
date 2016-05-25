@@ -24,7 +24,9 @@ import org.ligson.fw.web.controller.BaseController;
 import org.ligson.fw.web.vo.WebResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -69,11 +71,13 @@ public class CertMgrController extends BaseController {
 
     @RequestMapping("/initAdminCert.html")
     public String toInitAdminCert() {
+        User user = (User) session.getAttribute("adminUser");
         ListKeyStoreRequestDto requestDto = new ListKeyStoreRequestDto();
         Result<ListKeyStoreResponseDto> listResult = certApi.listKeyStore(requestDto);
         if (listResult.isSuccess()) {
             List<String> keys = listResult.getData().getAliases();
             request.setAttribute("keys", keys);
+            session.setAttribute("initUserId", user.getId());
         }
         return "admin/certMgr/initAdminCert";
     }
@@ -97,11 +101,11 @@ public class CertMgrController extends BaseController {
         requestDto.setCertPin(certPin);
         requestDto.setKeyId(keyId);
         requestDto.setUserId(user.getId());
-        String subjectDn = "o=" + o + ",ou=" + ou + ",cn=" + cn;
+        String subjectDn = "O=" + o + ",OU=" + ou + ",CN=" + cn;
         requestDto.setSubjectDn(subjectDn);
         requestDto.setIssueDn(esaCert.getSubjectDn());
-        requestDto.setSubjectDnHashMd5(HashHelper.md5(subjectDn));
-        requestDto.setIssueDnHashMd5(HashHelper.md5(esaCert.getSubjectDn()));
+        //requestDto.setSubjectDnHashMd5(HashHelper.md5(subjectDn));
+        //requestDto.setIssueDnHashMd5(HashHelper.md5(esaCert.getSubjectDn()));
         requestDto.setStartDate(new Date());
         Result<EnrollCertResponseDto> enrollCertResult = certApi.enrollCert(requestDto);
         if (enrollCertResult.isSuccess()) {

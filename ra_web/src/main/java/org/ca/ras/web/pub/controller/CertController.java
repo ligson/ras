@@ -65,7 +65,7 @@ public class CertController extends BaseController {
         String o = request.getParameter("o");
         String ou = request.getParameter("ou");
         String cn = request.getParameter("cn");
-        String subjectDn = "o=" + o + ",ou=" + ou + ",cn=" + cn;
+        String subjectDn = "O=" + o + ",OU=" + ou + ",CN=" + cn;
         String subjectDnHashMd5 = HashHelper.md5(subjectDn);
         requestDto.setSubjectDn(subjectDn);
         requestDto.setSubjectDnHashMd5(subjectDnHashMd5);

@@ -35,9 +35,9 @@
         </form>
     </div>
 </div>
-<div id="viewCsrDlg" title="查看csr" class="easyui-dialog" closed="true" style="padding:30px;width:300px;">
+<div id="viewCsrDlg" title="查看csr" class="easyui-dialog" closed="true" style="padding:30px;width:500px;">
     <div class="container-fluid">
-    <textarea cols="100" rows="5" class="form-control" id="csrTxt"></textarea>
+    <textarea rows="15" class="form-control" id="csrTxt" disabled></textarea>
     </div>
 </div>
 </@override>
