@@ -29,7 +29,7 @@ public class WebInterceptor implements HandlerInterceptor {
             if (bean instanceof CertController) {
                 Object token = request.getSession().getAttribute("user");
                 if (token == null) {
-                    response.sendRedirect("/user/login.html");
+                    response.sendRedirect(request.getContextPath() + "/user/login.html");
                     return false;
                 }
             }
