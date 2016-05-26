@@ -69,6 +69,7 @@ public class CertMgrController extends BaseController {
         return "admin/certMgr/index";
     }
 
+
     @RequestMapping("/initAdminCert.html")
     public String toInitAdminCert() {
         User user = (User) session.getAttribute("adminUser");
@@ -150,6 +151,29 @@ public class CertMgrController extends BaseController {
         if (result.isSuccess()) {
             webResult.put("total", result.getData().getTotalCount());
             webResult.put("rows", result.getData().getCerts());
+            webResult.setSuccess(true);
+        } else {
+            webResult.setError(result);
+        }
+        return webResult;
+    }
+
+    @ResponseBody
+    @RequestMapping("/keyList.json")
+    public WebResult keyList(ListUserKeyRequestDto requestDto) {
+        webResult.clear();
+        User user = (User) session.getAttribute("adminUser");
+        String pageString = request.getParameter("page");
+        int page = Integer.parseInt(pageString);
+        requestDto.setPageNum(page);
+        String rowString = request.getParameter("rows");
+        int rows = Integer.parseInt(rowString);
+        requestDto.setPageSize(rows);
+        requestDto.setAdminId(user.getId());
+        Result<ListUserKeyResponseDto> result = certApi.listUserKey(requestDto);
+        if (result.isSuccess()) {
+            webResult.put("total", result.getData().getTotalCount());
+            webResult.put("rows", result.getData().getKeyPairs());
             webResult.setSuccess(true);
         } else {
             webResult.setError(result);

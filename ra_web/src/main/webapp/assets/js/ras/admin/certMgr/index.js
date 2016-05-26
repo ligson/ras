@@ -104,7 +104,35 @@ $(function () {
          }
          }]*/
     });
-});
+
+    var keyGrid = $("#keyGrid");
+    keyGrid.datagrid({
+        ///fit: true,
+        columns: [[
+            {field: 'ck', title: 'ckID', width: 40, checkbox: 'true'},
+            {field: 'aliase', title: 'aliase', width: 100},
+            {
+                field: 'keyType', title: '密钥类型', width: 40, formatter: function (value) {
+                if (value == 1) {
+                    return "RSA";
+                } else {
+                    return "SM2";
+                }
+            }
+            },
+            {field: 'keySize', title: '密钥长度',width:40},
+            {
+                field: 'createTime', title: '创建时间', width: 100, formatter: function (value) {
+                if (value != null) {
+                    return new Date(value).format("yyyy-MM-dd HH:mm:ss");
+                }
+            }
+            }
+        ]]
+    });
+
+})
+;
 
 function showApproveCertDlg(certId) {
     //var userGrid = $("#tt");
@@ -115,8 +143,15 @@ function showApproveCertDlg(certId) {
 }
 
 function approveCert() {
+    var keyGrid = $("#keyGrid");
+    var sel = keyGrid.datagrid("getSelected");
+    if (sel == null) {
+        alert("请选择密钥对");
+        return;
+    }
     var userGrid = $("#tt");
     var form = $("#approveCertForm");
+    form.find("input[name='aliase']").val(sel.aliase);
     form.form("submit", {
         success: function (data) {
             var data = eval('(' + data + ')');  // change the JSON string to javascript object

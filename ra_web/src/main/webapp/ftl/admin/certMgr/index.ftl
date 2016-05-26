@@ -10,34 +10,30 @@
     <thead>
     </thead>
 </table>
-<div id="approveCertDlg" title="批准证书" class="easyui-dialog col-sm-4" closed="true" style="padding:30px;">
-    <div class="container-fluid">
-        <form class="form-horizontal  easyui-form" action="${basePath}admin/certMgr/approveCert.json"
-              id="approveCertForm">
-            <input type="hidden" name="id" value=""/>
-            <div class="form-group row">
-                <label class="col-sm-3">选择密钥</label>
-                <div class="col-sm-6">
-                    <select class="easyui-combobox form-control" name="aliase" editable="false" required="true">
-                        <#list pairs as pair>
-                            <option value="${pair.aliase}">${(pair.type==1)?string("RSA","SM2")}
-                                -${pair.keySize}(${pair.aliase})
-                            </option>
-                        </#list>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="approveCert()">批准</a>
-                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'"
-                   onclick="$('#approveCertDlg').dialog('close')">取消</a>
-            </div>
-        </form>
-    </div>
+<div id="approveCertDlgBtns">
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="approveCert()">批准</a>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'"
+       onclick="$('#approveCertDlg').dialog('close')">取消</a>
+</div>
+<div buttons="#approveCertDlgBtns" id="approveCertDlg" title="批准证书" class="easyui-dialog" closed="true"
+     style="padding:30px;width:560px;">
+    <form class="easyui-form" action="${basePath}admin/certMgr/approveCert.json"
+          id="approveCertForm">
+        <input type="hidden" name="id" value=""/>
+        <input type="hidden" name="aliase" value=""/>
+        <label class="col-sm-9">选择密钥</label>
+    </form>
+    <table id="keyGrid" class="easyui-datagrid" style="height:350px; width:500px;"
+           data-options="singleSelect:true,fix:true" pagination="true" rownumbers="true"
+           fitColumns="true"
+           url="${basePath}admin/certMgr/keyList.json" iconCls="icon-save" pagination="true">
+        <thead>
+        </thead>
+    </table>
 </div>
 <div id="viewCsrDlg" title="查看csr" class="easyui-dialog" closed="true" style="padding:30px;width:500px;">
     <div class="container-fluid">
-    <textarea rows="15" class="form-control" id="csrTxt" disabled></textarea>
+        <textarea rows="15" class="form-control" id="csrTxt" disabled></textarea>
     </div>
 </div>
 </@override>

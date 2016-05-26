@@ -36,7 +36,7 @@ public class WebInterceptor implements HandlerInterceptor {
             if (bean instanceof CertMgrController) {
                 Object token = request.getSession().getAttribute("adminUser");
                 if (token == null) {
-                    response.sendRedirect("/admin/login.html");
+                    response.sendRedirect(request.getContextPath() + "/admin/login.html");
                     return false;
                 }
             }
