@@ -20,7 +20,7 @@
                 <div class="col-sm-6">
                     <select class="easyui-combobox form-control" name="aliase" editable="false" required="true">
                         <#list pairs as pair>
-                            <option value="${pair.aliase}">${(pair.type==1)?string("SM2","RSA")}
+                            <option value="${pair.aliase}">${(pair.type==1)?string("RSA","SM2")}
                                 -${pair.keySize}(${pair.aliase})
                             </option>
                         </#list>
