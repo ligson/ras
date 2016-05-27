@@ -8,6 +8,7 @@ import org.ca.cas.cert.vo.Cert;
 import org.ca.cas.user.api.UserApi;
 import org.ca.cas.user.dto.QueryUserRequestDto;
 import org.ca.cas.user.dto.QueryUserResponseDto;
+import org.ca.common.cert.enums.CertStatus;
 import org.ca.common.cert.enums.CertType;
 import org.ca.ras.cert.api.RaCertApi;
 import org.ca.ras.cert.dto.EnrollCertRequestDto;
@@ -181,8 +182,18 @@ public class CertController extends BaseController {
     @RequestMapping("/view.html")
     public String toViewUserCert() {
         if (session.getAttribute("cert") == null) {
-            request.setAttribute("message", "用户证书不存在");
-            return "pub/cert/message";
+            User user = (User) session.getAttribute("user");
+            QueryCertRequestDto certRequestDto = new QueryCertRequestDto();
+            certRequestDto.setPageAble(false);
+            certRequestDto.setUserId(user.getId());
+            Result<QueryCertResponseDto> queryResult = certApi.queryCert(certRequestDto);
+            if (queryResult.isSuccess()) {
+                Cert cert = queryResult.getData().getCert();
+                request.setAttribute("cert", cert);
+            } else {
+                request.setAttribute("message", "用户证书不存在");
+                return "pub/cert/message";
+            }
         }
         return "pub/cert/view";
     }

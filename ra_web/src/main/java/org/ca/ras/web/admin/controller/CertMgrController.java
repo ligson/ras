@@ -76,7 +76,7 @@ public class CertMgrController extends BaseController {
         ListKeyStoreRequestDto requestDto = new ListKeyStoreRequestDto();
         Result<ListKeyStoreResponseDto> listResult = certApi.listKeyStore(requestDto);
         if (listResult.isSuccess()) {
-            List<String> keys = listResult.getData().getAliases();
+            List<KeyPair> keys = listResult.getData().getKeyPairs();
             request.setAttribute("keys", keys);
             session.setAttribute("initUserId", user.getId());
         }
@@ -105,8 +105,8 @@ public class CertMgrController extends BaseController {
         String subjectDn = "O=" + o + ",OU=" + ou + ",CN=" + cn;
         requestDto.setSubjectDn(subjectDn);
         requestDto.setIssueDn(esaCert.getSubjectDn());
-        //requestDto.setSubjectDnHashMd5(HashHelper.md5(subjectDn));
-        //requestDto.setIssueDnHashMd5(HashHelper.md5(esaCert.getSubjectDn()));
+        requestDto.setSubjectDnHashMd5(HashHelper.md5(subjectDn));
+        requestDto.setIssueDnHashMd5(HashHelper.md5(esaCert.getSubjectDn()));
         requestDto.setStartDate(new Date());
         Result<EnrollCertResponseDto> enrollCertResult = certApi.enrollCert(requestDto);
         if (enrollCertResult.isSuccess()) {
